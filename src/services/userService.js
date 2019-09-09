@@ -14,5 +14,11 @@ export default {
         return axios.get(`${API_ENDPOINT}/recipes`)
             .then(res => res.data)
             .catch(errorHandler)
-    }
+    },
+
+    fetchOne: function (id) {
+        return axios.get(`${API_ENDPOINT}/recipes/${id}`)
+            .then(res => res.data)
+            .catch(errorHandler)
+    },
 }

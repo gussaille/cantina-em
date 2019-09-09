@@ -19,7 +19,7 @@ export default {
 
 .nav {
     animation: slideDown 0.8s ease-out;
-    background-color: #42b983;
+    background-color: black;
     overflow: hidden;
     margin-bottom: 3em;
 }
@@ -39,13 +39,17 @@ export default {
         color: white;
         text-decoration: none;
         display: inline-block;
-        padding: 0.75em;
         transition: all 150ms;
         transform: scale(1);
+        padding: 0.75em;
+        @media screen and(max-width:480px){
+            padding: 0.75em 0;
+        }
 
         &:hover{
-            background-color: #128953;
+            background-color: black;
             transform: scale(1.05);
+            color: rgba(81, 203, 238, 0.8);
         }
         &:last-of-type{
             margin-left: auto;
@@ -55,14 +59,16 @@ export default {
         }
         &:active{
             transition: none;
-            color: #128953;
-            background-color: #82f9c3
+            color: rgba(81, 203, 238, 0.8);
+            background-color: rgb(41, 40, 40);
         }
         &.router-link-exact-active {
             @media screen and(max-width:480px){
                 width: 100%;
             }
-            background-color: #128953;
+            color: rgba(81, 203, 238, 0.8);
+            background-color: rgb(41, 40, 40);
+            text-shadow:0 0 10px rgba(81, 203, 238, 0.8);
         }
     }
 

@@ -1,11 +1,6 @@
 <template>
-  <div id="app"> 
-        <Navbar/>
-
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
+  <div id="app" class="wrapper"> 
+    <Navbar/>
     <router-view/>
   </div>
 </template>
@@ -33,6 +28,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.wrapper{
+  width:100%;
+  max-width:1680px;
 }
 #nav {
   padding: 30px;

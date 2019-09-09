@@ -1,6 +1,6 @@
 <template>
   <div class="recipe-list">
-      <RecipeCard/>
+      <RecipeCard v-for="recipe in recipesList" :key="recipe.id" :recipe="recipe"/>
   </div>
 </template>
 
@@ -11,9 +11,14 @@ import userService from "../services/userService"
 export default {
   name: 'List',
   components: {RecipeCard},
-  props: {
-
-  },
+  props: {},
+  data : function(){
+        return{
+            recipesList : null,
+            searchValue: "",
+            selectValue: "name"
+        }
+    },
   created(){
       userService
       .fetchAll()
@@ -30,4 +35,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
+.recipe-list{
+  width:100%;
+  max-width: 1480px;
+  display:flex;
+  flex-wrap: wrap;
+  align-items:center;
+  justify-content: space-around;
+}
 </style>
