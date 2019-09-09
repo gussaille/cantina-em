@@ -68,17 +68,11 @@ export default {
             }
             color: rgba(81, 203, 238, 0.8);
             background-color: rgb(41, 40, 40);
-            text-shadow:0 0 10px rgba(81, 203, 238, 0.8);
+            text-shadow:0 0 10px rgba(81, 203, 238, 1);
         }
     }
-
 }
 
-.navbar a
-
-.navbar a:active {
-   
-}
 @keyframes slideDown{
     from{
         transform: translateY(-100%);

@@ -31,6 +31,7 @@ export default {
 }
 .wrapper{
   width:100%;
+  background: #2C2C2C;
   max-width:1680px;
 }
 #nav {

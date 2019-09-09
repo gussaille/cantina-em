@@ -22,6 +22,7 @@ export default {
         }
     }, 
     methods: {
+     
         // addUser(userToAdd){        
         //     userService.addUser(userToAdd).then(res =>{
         //         this.$toasted.success("Un nouveau collaborateur a été ajouté !")
