@@ -7,7 +7,7 @@
         v-model="$v.recipe.titre.$model"
         @blur="$v.recipe.titre.$touch()"
         id="title"
-        placeholder="Titre de la recette"
+        placeholder="Saisissez le titre de la recette"
       >
       <span v-if="$v.recipe.titre.$dirty && !$v.recipe.titre.required">Veuillez renseigner un titre à cette recette</span>
     </div>
@@ -19,7 +19,7 @@
         v-model="$v.recipe.description.$model"
         @blur="$v.recipe.description.$touch()"
         id="description"
-        placeholder="Veuillez saisir la description de la recette"
+        placeholder="Saisissez une description de la recette"
       ></textarea>
       <span v-if="$v.recipe.description.$dirty && !$v.recipe.description.required">Veuillez renseigner une description pour cette recette</span>
     </div>
@@ -40,7 +40,7 @@
       <input
         type="number"
         v-model="$v.recipe.tempsPreparation.$model"
-        @blur="$v.recipe.tempsPrepartion.$touch()"
+        @blur="$v.recipe.tempsPreparation.$touch()"
         id="time"
         placeholder="Saisissez le temps de préparation en minutes"
       >
@@ -84,7 +84,7 @@
 
 <script>
 
-import { required, alpha, url } from "vuelidate/lib/validators";
+import { required, integer, between, minLength, url } from "vuelidate/lib/validators";
 
 export default {
     name: "Form",
@@ -108,19 +108,30 @@ export default {
     },
     validations: {
         recipe: {
-            titre: { required },
-            description: { required, alpha },
-            etapes: { required, alpha },
+            titre: { 
+              required : true,
+              minLength: minLength(4)
+            },
+            description: { required, },
+            etapes: { required, },
             ingredients: { required },
             niveau: { required },
-            personnes: { required },
-            tempsPreparation: { required, alpha },
-            photo: { url }
+            personnes: { 
+              required, 
+              integer, 
+              between: between(1, 1000)
+            },
+            tempsPreparation: { 
+              required, 
+              integer,
+              between: between(1, 1000)
+            },
+            photo:{url}
         }
     },
     methods: {
         onSubmit: function() {
-            if(this.$v.recipe.$invalid) 
+        if(this.$v.recipe.$invalid) 
             return this.$v.recipe.$touch();
             this.$emit('send', this.recipe);
         }
@@ -155,13 +166,35 @@ export default {
             max-width:400px;
             padding:12px;
         }
+        textarea{
+            @media screen and(min-width:480px){
+                padding-top: 28px;
+            }
+        }
         select{
             width:60%;
         }
         
         span{
+            margin-top:5px;
             color:red;
             font-size:12px;
+        }
+    }
+    .actions{
+        button{
+            width: 250px; 
+            padding:12px;
+            background: rgba(81, 203, 238, 0.8);
+            margin: 20px auto;
+            outline: none;
+            font-size:20px;
+            color:white;
+            text-transform: uppercase;
+            border: none;
+            &:hover{
+                box-shadow: 0 0 10px rgba(120, 204, 228, 0.6);
+            }
         }
     }
 }

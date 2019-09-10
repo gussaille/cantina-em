@@ -23,7 +23,8 @@ export default {
     }, 
     methods: {
         addRecipe(recipeToAdd){        
-            userService.addRecipe(recipeToAdd).then(() =>{
+            userService.addRecipe(recipeToAdd).then((res) =>{
+                console.log(res)
                 // this.$toasted.success("Un nouveau collaborateur a été ajouté !")
                 alert("Felicitation, une nouvelle recette est ajoutée !")
                 this.$router.replace('/list');

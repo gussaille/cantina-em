@@ -23,7 +23,7 @@ export default {
     },
 
     addRecipe: function (recipeObject) {
-        return axios.post(`${API_ENDPOINT}/recipe/`, recipeObject)
+        return axios.post(`${API_ENDPOINT}/recipes/`, recipeObject)
             .then(res => res.data)
             .catch(errorHandler)
     },
