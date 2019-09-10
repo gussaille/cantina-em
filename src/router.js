@@ -28,6 +28,6 @@ export default new Router({
       path : '/recipe/:id', 
       name: 'Recipe',
       component : Recipe
-    }
+    },
   ]
 })

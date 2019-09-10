@@ -5,6 +5,7 @@
 </template>
 
 <script>
+
 import RecipeCard from  './RecipeCard'
 import userService from "../services/userService"
 

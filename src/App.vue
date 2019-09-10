@@ -30,9 +30,13 @@ export default {
   color: #2c3e50;
 }
 .wrapper{
+  color:white;
   width:100%;
   background: #2C2C2C;
   max-width:1680px;
+  ul{
+    padding:unset;
+  }
 }
 #nav {
   padding: 30px;

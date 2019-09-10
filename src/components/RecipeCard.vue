@@ -63,6 +63,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   .recipe-card{
+    border-radius:20px;
     width:100%;
     max-width:320px;
     border: 2px solid black;
@@ -104,14 +105,28 @@ export default {
           color:white;
         }
         .btn-custom{
-          display:flex;
-          justify-content: center;
-          &--edit{
-            margin-right:4px;
-          }
-          &--remove{
-            background: red;
-          }
+            display: flex;
+            justify-content: space-around;
+            @media screen and(min-width:480px){
+                width: 60%;
+                margin: 0 auto;
+                max-width: 500px;
+            }
+            
+            button {
+                cursor: pointer;
+                width:auto;
+                @media screen and(min-width:480px){
+                  width: 120px;
+                }
+                padding:10px;
+                outline: 0;
+                border: 0;
+                margin: 20px auto;
+            }
+            &--remove{
+                background-color:red;
+            }
         }
       }
     }

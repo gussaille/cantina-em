@@ -1,10 +1,13 @@
 <template>
     <article class="recipe">
         <div class="container">
+
             <section>
                 <img :src="recipe.photo || DEFAULT_PICTURE" class="recipe__banner" :alt="recipe.titre">
-                <div class="recipes__details details">
-                    <h1 class="recipe__title">{{recipe.titre}}</h1>
+
+                <div class="recipe__details details">
+                    <h1 class="details__title">{{recipe.titre}}</h1>
+                     <p class="details__preparation__description">{{recipe.description}}</p>
 
                     <div class="details__preparation">
                         <p class="details__preparation__level">Difficulté : {{ recipe.niveau }}</p>
@@ -20,17 +23,24 @@
             </section>  
 
             <section>
-
-                <div class="ingredient">
-                    <h2>Pour cette recette, vous aurez besoin de : </h2>
-                    <li v-for="(ing, index) in recipe.ingredients" :key="index">{{ recipe.ingredients[index] }}</li>
+                <div class="recipe__ingredients">
+                    <ul class="recipe__subtitle">Ingrédients</ul>
+                    <li class="recipe__text" v-for="(ingredient, index) in recipe.ingredients" :key="index">
+                        {{ recipe.ingredients[index] }}</li>
                 </div>
 
+                <hr>
+
+                <div class="recipe__cooking">
+                    <ul class="recipe__subtitle">Préparation</ul>
+                    <li class="recipe__text" v-for="(etape, step) in recipe.etapes" :key="step">
+                        {{ recipe.etapes[step] }}</li>
+                </div>
             </section>
-      <!-- <div class="btn-custom">
-            <button class="btn-custom--edit" @click="edit">Modifier</button> 
-            <button class="btn-custom--remove" @click="remove">Supprimer</button> 
-        </div> -->
+            <div class="btn-custom">
+                <button class="btn-custom--edit" @click="edit">Modifier</button> 
+                <button class="btn-custom--remove" @click="remove">Supprimer</button> 
+            </div>
         </div>
      </article>
 </template>
@@ -43,26 +53,28 @@ export default {
     name: 'Recipe',
     data() {
         return {
-            recipe: {}
+            recipe: {
+                ingredients:{}
+            }
         }
     },
     created(){
-        console.log('yes');
         userService
-            .fetchOne(this.$route.params.id)
-            .then(recipe => {
-                this.recipe = recipe;
-                console.log(recipe);
-            })
-            .catch(({message}) => {
-                this.message.error(message);
-                this.$router.replace('/');
-            });
+        .fetchOne(this.$route.params.id)
+        .then(recipe => {
+            this.recipe = recipe;
+            console.log(recipe);
+        })
+        // .catch(({message}) => {
+        //     this.message.error(message);
+        //     this.$router.replace('/');
+        // });
     },
     computed: {
         DEFAULT_PICTURE: function() {
             return "https://munchies-images.vice.com/wp_upload/blue-star-wars-cookies.jpg?crop=0.9991111111111111xw%3A1xh%3Bcenter%2Ccenter&resize=2000%3A*";
         },
+
         CONVERT_TIME: function(n) {
             n = this.recipe.tempsPreparation;
             var num = n;
@@ -91,7 +103,19 @@ export default {
 <style scoped lang="scss">
 
 .recipe{
+    color:white;
     min-height:100vh;
+
+    &__subtitle{
+        text-decoration: underline;
+        font-size:20px;
+        text-align:left;
+    }
+
+    &__text{
+        margin: 10px auto;
+    }
+
     .container{
         section:first-child{
             display:flex;
@@ -108,61 +132,77 @@ export default {
                 max-width:1680px;
                 margin: 50px auto;
             }
+            .recipe__banner {
+                display: block;
+                border-radius: 60px;
+                width:100%;
+                height:260px;
+                margin:20px auto;
+
+                @media screen and(min-width:480px){
+                    width:40%;
+                    margin: unset;
+                    max-width:200px;
+                    height:auto;
+                }   
+            }
+
+            .details {
+                color: white;
+
+                @media screen and(max-width:480px){
+                    display:flex;
+                    align-items:center;
+                    flex-direction: column;
+                }
+
+                &__preparation{
+                    &__description{
+                        font-style: italic;
+                        font-size:14px;
+                    }
+
+                    &__level{
+                        text-transform:capitalize;
+                        color:white;
+                    }
+                }
+            }  
         }
-    }
-    width:100%;
-    &__banner {
-        display: block;
-        border-radius: 60px;
-        width:100%;
-        height:260px;
-        margin:0 auto;
-        @media screen and(min-width:480px){
-            width:40%;
-            height:auto;
+        section:last-of-type{
+            width: 100%;
+            text-align: left;
+
+            .recipe{
+                padding-left: 10px;
+
+                &__ingredients, 
+                &__cooking {
+                    margin: 10px auto;
+                    padding-left: 15px;
+                    text-align: left;
+                }
+            }
         }
-    }
-
-    &__title{
-      color:white;
-    }
-
-    .details {
-        color: white;
-
-        @media screen and(max-width:480px){
-            display:flex;
-            align-items:center;
-        }
-
-        &__illustration {
-            display: block;
-            width:150px;
-            height:auto;
-
+        .btn-custom{
+            display: flex;
+            justify-content: space-around;
             @media screen and(min-width:480px){
-            width:100%;
-            height:200px;
+                width: 60%;
+                margin: 0 auto;
+                max-width: 500px;
             }
-        }
-
-        &__preparation{
-            padding-left:10px;
-
-            &__level{
-                text-transform:capitalize;
-                color:white;
+            
+            button {
+                cursor: pointer;
+                width:150px;
+                padding:10px;
+                outline: 0;
+                border: 0;
+                margin: 20px auto;
             }
-
-            .btn-custom{
-                display:flex;
-                justify-content: center;
-                &--edit{
-                    margin-right:4px;
-                }
-                &--remove{
-                    background: red;
-                }
+            &--remove{
+                background-color:red;
             }
         }
     }
