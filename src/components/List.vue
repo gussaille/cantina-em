@@ -13,12 +13,12 @@ export default {
   components: {RecipeCard},
   props: {},
   data : function(){
-        return{
-            recipesList : null,
-            searchValue: "",
-            selectValue: "name"
-        }
-    },
+    return{
+        recipesList : null,
+        searchValue: "",
+        selectValue: "name"
+    }
+  },
   created(){
       userService
       .fetchAll()

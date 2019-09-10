@@ -5,7 +5,7 @@
       <img :src="recipe.photo || DEFAULT_PICTURE" class="informations__illustration" :alt="recipe.titre">
       <div class="informations__preparation">
         <p class="informations__preparation__level">Difficulté : {{ recipe.niveau }}</p>
-        <p class="informations__preparation__time">Préparation : {{ recipe.tempsPreparation }} mn</p>
+        <p class="informations__preparation__time">Préparation : {{ CONVERT_TIME }} </p>
         
         <p class="informations__preparation__guest" v-if="recipe.personnes > 1"> Pour {{ recipe.personnes }} personnes
         </p>
@@ -33,9 +33,21 @@ export default {
     }
   }, 
   computed: {
-     DEFAULT_PICTURE: function() {
+    DEFAULT_PICTURE: function() {
       return "https://munchies-images.vice.com/wp_upload/blue-star-wars-cookies.jpg?crop=0.9991111111111111xw%3A1xh%3Bcenter%2Ccenter&resize=2000%3A*";
     },
+    CONVERT_TIME: function(n) {
+      n = this.recipe.tempsPreparation;
+      var num = n;
+      var hours = (num / 60);
+      var rhours = Math.floor(hours);
+      var minutes = (hours - rhours) * 60;
+      var rminutes = Math.round(minutes);
+      if(rhours >= 1){
+        return rhours + "h" + rminutes + "mn" ;
+      }
+      return rminutes + "mn";
+    }
   },
   methods: {
       edit(){
@@ -80,7 +92,7 @@ export default {
         width:150px;
         height:auto;
 
-        @media screen and(min-width:768px){
+        @media screen and(min-width:480px){
           width:100%;
           height:200px;
         }
@@ -92,8 +104,10 @@ export default {
           color:white;
         }
         .btn-custom{
+          display:flex;
+          justify-content: center;
           &--edit{
-            background: gray;
+            margin-right:4px;
           }
           &--remove{
             background: red;

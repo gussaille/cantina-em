@@ -21,7 +21,7 @@ export default {
     animation: slideDown 0.8s ease-out;
     background-color: black;
     overflow: hidden;
-    margin-bottom: 3em;
+    // margin-bottom: 3em;
 }
 
 .nav-container {
