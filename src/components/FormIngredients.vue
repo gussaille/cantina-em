@@ -1,12 +1,12 @@
 <template>
     <div class="ingredients-bloc">
         <div> 
-            <input placeholder="Quantité" v-model="ingredients[0][0]">
+            <input placeholder="Quantité" v-model="ingredients[0][0]" @blur='sendIngredients'/>
         </div>
         
         <div>
         <select v-model="ingredients[0][1]">
-                <option value="Mesure" disabled>Mesure</option>
+                <option value ="" select="selected" disabled>Mesure</option>
                 <option value="l">l</option>
                 <option value="cl">cl</option>
                 <option value="kg">kg</option>
@@ -28,27 +28,22 @@ export default {
     props: {
         recipe: {
             type: Object,
-            // ingredients: [
-            //     [ "", "" , ""],
-            // ]
         }
     },
-    //   ingredients: [{
-    //       value:[{
-    //             type: String,
-    //       }] 
-    //   }]
     data: function(){
         return{
             ingredients: [
-                ["" , "", ""],
+                ["", ""]
             ]                 
         }
     },
     methods: {
-      
+        sendIngredients: function () {
+            this.$emit('send', this.ingredients);
+        }
     }
 }
+
 </script>
 
 <style scoped lang="scss">

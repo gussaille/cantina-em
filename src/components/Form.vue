@@ -36,12 +36,11 @@
     </div>
 
 
-
     <div class="recipe-form__group recipe-form__group--ingredient">
         <label for="ingredients">Liste des ingrédients :</label>
 
-        <FormIngredients/>
-  
+        <FormIngredients @send="getIngredients"/>
+        
         <button class="addField" @click.prevent="addField">+</button>
     </div>
 
@@ -53,8 +52,7 @@
         v-model.number="$v.recipe.tempsPreparation.$model"
         @blur="$v.recipe.tempsPreparation.$touch()"
         id="time"
-        placeholder="Saisissez le temps de préparation en minutes"
-      >
+        placeholder="Saisissez le temps de préparation en minutes">
       <span v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.required">Veuillez indiquer un temps de préparation en minute</span>
     </div>
 
@@ -69,21 +67,18 @@
       <span v-if="$v.recipe.personnes.$dirty && !$v.recipe.personnes.required">Veuillez saisir un nombre de personne</span>
     </div>
     
-    <!-- <div class="recipe-form__group">
+
+   
+    <div class="recipe-form__group">
       <label for="step">Etapes de préparation</label>
-      <div class="textarea-block" v-for="etape in recipe.etapes" :key="etape.id" :id="etape.id">
-        <textarea
-          type="text" 
-        v-model="$v.recipe.etapes.$model"
-          @blur="$v.recipe.etapes.$touch()" 
-           placeholder="Saisissez l'étape de préparation"></textarea>           -->
-          <!-- <button v-if="counterTextarea > 1" @click="steps.splice(index, 1)">x</button> -->
-      <!-- </div>
-      <button class="addField" @click.prevent="addTextArea">+</button>
-      <span v-if="$v.recipe.etapes.$dirty && !$v.recipe.etapes.required">
+     
+      <FormSteps @send="getSteps"/>
+
+      <!-- <button class="addField" @click.prevent="addTextArea">+</button> -->
+      <!-- <span v-if="$v.recipe.etapes.$dirty && !$v.recipe.etapes.required">
           Veuillez saisir les différentes étapes de la recette
-      </span>
-    </div> -->
+      </span> -->
+    </div> 
 
     <div class="recipe-form__group">
       <label for="photo">Photo :</label>
@@ -98,25 +93,21 @@
 
 <script>
 
+import FormSteps from "./FormSteps";
 import FormIngredients from "./FormIngredients";
 import { required, url, integer } from "vuelidate/lib/validators";
 
 export default {
     name: "Form",
-    components: { FormIngredients },
-    props: {
-      ingredients:[]
-    },
+    components: { FormIngredients, FormSteps },
      data: function() {
         return{
           recipe: {     
             id: null,
             titre: "",
             description: "",
-            // etapes: [],  
-            ingredients: [
-              ['', '', '']
-            ],                 
+            etapes: [],  
+            ingredients: [],                 
             niveau: "", 
             personnes: "",
             tempsPreparation: "",
@@ -128,7 +119,7 @@ export default {
         recipe: {
             titre: { required },
             description: { required },
-            // etapes: { required },
+            etapes: { required },
             ingredients: { required },
             niveau: { required },
             personnes: { required, integer },
@@ -142,15 +133,16 @@ export default {
         if (this.$v.recipe.$pending || this.$v.recipe.$error) return;
             alert("Form submitted");
             this.$emit('send', this.recipe)
+            // this.$router.push({name:'List'});
         },
 
-        addField: function () {
-          this.recipe.ingredients.push();
+        getIngredients: function (data) {
+          this.recipe.ingredients.push(data);
         },
 
-        addTextArea: function(){
-          this.recipes.etapes.push({ etape : ''});
-        },
+        getSteps: function(data){
+          this.recipe.etapes.push(data);
+        }
         // removeField(step){
         //   this.steps.$remove(step);
         // }
@@ -187,19 +179,6 @@ export default {
             outline:none;
             border-radius:20px;
             border:none;
-        }
-        textarea{
-          width:89%;
-
-          .textarea-block{
-            min-height:40px;
-            display:flex;
-            align-items: center;
-          }
-          margin:5px 0;
-          @media screen and(min-width:480px){
-              padding-top: 28px;
-          }
         }
         select{
             width:60%;
