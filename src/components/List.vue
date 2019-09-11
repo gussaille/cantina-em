@@ -1,6 +1,22 @@
 <template>
-  <div class="recipe-list">
-      <RecipeCard v-for="recipe in recipesList" :key="recipe.id" :recipe="recipe"/>
+  <div class="list">
+    <form class="form-filter" @submit.prevent>
+        <input type="text" v-model="searchValue" placeholder="Veuillez saisir un nom de recette">
+
+          <div class="form-filter__select">
+              <label for="filter">Filtrer par :</label>
+              <select name="filterBy" v-model="selectValue">
+                  <option value="name">Nom de la recette</option>
+                  <option value="level">Niveau de difficulté</option>
+                  <option value="guest">Nombre de personne</option>
+                  <option value="time">Temps de préparation</option>
+              </select>
+          </div>
+      </form>
+
+    <div v-if="recipesList" class="recipe-list">    
+        <RecipeCard v-for="recipe in filteredList" :key="recipe.id" :recipe="recipe"/>
+    </div>
   </div>
 </template>
 
@@ -12,7 +28,7 @@ import userService from "../services/userService"
 export default {
   name: 'List',
   components: {RecipeCard},
-  props: {},
+  props:{},
   data : function(){
     return{
         recipesList : null,
@@ -28,20 +44,73 @@ export default {
           this.recipesList = recipesList;
       });
   },
+  computed: {
+        filteredList: function() {
+            return this.recipesList.filter(({ titre, niveau, tempsPreparation, personnes }) => {
+                let searchVal = this.searchValue.toLowerCase();
+                    titre = titre.toLowerCase();
+                    personnes = personnes.toString().toLowerCase();
+                    tempsPreparation = tempsPreparation.toString();
+                    niveau = niveau.toLowerCase();
+
+                if(this.selectValue === "name"){
+                  return `${titre}`.includes(searchVal)
+                } 
+                else if(this.selectValue === 'guest'){
+                  return `${personnes}`.includes(searchVal)
+                } 
+                else if( this.selectValue === 'time'){
+                  return `${tempsPreparation}`.includes(searchVal)
+                } 
+                else { 
+                  return `${niveau}`.includes(searchVal)
+                }
+          });
+      }
+  },
+  
   methods :{
+
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.list{
+  .form-filter{
+    margin: 20px auto;
+    display:flex;
+    justify-content: space-around;
+    align-items:center;
+    @media screen and(max-width:480px){
+      flex-direction: column;
+    }
 
-.recipe-list{
-  width:100%;
-  max-width: 1480px;
-  display:flex;
-  flex-wrap: wrap;
-  align-items:center;
-  justify-content: space-around;
+    input{
+      width:80%;
+      padding: 12px;
+      max-width:420px;
+      @media screen and(max-width:480px){
+        
+      }
+    }
+    &__select{
+      display:flex;
+      flex-direction: column;
+      label{
+        color:white;
+      }
+    }
+  }
+  .recipe-list{
+    width:100%;
+    max-width: 1480px;
+    display:flex;
+    flex-wrap: wrap;
+    align-items:center;
+    justify-content: space-around;
+  }
 }
+
 </style>

@@ -64,7 +64,7 @@ export default {
 <style scoped lang="scss">
   .recipe-card{
     border-radius:20px;
-    width:100%;
+    width:95%;
     max-width:320px;
     border: 2px solid black;
     min-height:250px;
@@ -99,7 +99,6 @@ export default {
         }
       }
       &__preparation{
-        padding-left:10px;
         &__level{
           text-transform:capitalize;
           color:white;
@@ -112,6 +111,10 @@ export default {
                 margin: 0 auto;
                 max-width: 500px;
             }
+            @media screen and(max-width:320px){
+              flex-direction: column;
+              justify-content: center;
+            }
             
             button {
                 cursor: pointer;
@@ -123,6 +126,10 @@ export default {
                 outline: 0;
                 border: 0;
                 margin: 20px auto;
+                @media screen and(max-width:320px){
+                  margin:5px auto;
+                  width:100px;
+                }
             }
             &--remove{
                 background-color:red;

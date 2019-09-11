@@ -35,26 +35,30 @@
         <span v-if="$v.recipe.niveau.$dirty && !$v.recipe.niveau.required">Veuillez choisir un niveau de difficulté</span>
     </div>
 
-     <div class="recipe-form__group">
+     <!-- <div class="recipe-form__group recipe-form__group--ingredient">
         <label for="ingredients">Liste des ingrédients :</label>
-        <input id="ingredients" v-model="$v.recipe.ingredients.$model" placeholder="Ajouter un ingrédient">
-        <span v-if="$v.recipe.ingredients.$dirty && !$v.recipe.ingredients.required">Veuillez choisir au moins un ingrédient</span>
+        <div class="ingredients-bloc" v-for="ingredient in ingredients" :id="ingredient.id" :key="ingredient.id">
+          <div> 
+            <input placeholder="Quantité">
+          </div>
 
-        <!-- <label for="ingredients-unity">Unité de mesure</label>
-        <select id="ingredients-unity" v-model="$v.recipe.ingredients.unity.$model" placeholder="Ajouter un ingrédient">
-            <option value="">Choisir une unité de mesure</option>
-            <option value="l">l</option>
-            <option value="cl">cl</option>
-            <option value="kg">kg</option>
-            <option value="g">g</option>
-            <option value="mg">mg</option> 
-        </select>
+          <div>
+            <select>
+                <option value="">Mesure</option>
+                <option value="l">l</option>
+                <option value="cl">cl</option>
+                <option value="kg">kg</option>
+                <option value="g">g</option>
+                <option value="mg">mg</option> 
+            </select>
+          </div>
 
-        <label for="ingredients-quantity">Quantité</label>
-        <input id="ingredients-quantity" v-model="$v.recipe.ingredients.quantity.$model" placeholder="Ajouter un ingrédient">
-        <span v-if="$v.recipe.ingredients.quantity.$dirty && !$v.recipe.ingredients.quantity.required">Veuillez choisir un dosage</span> -->
-
-    </div>
+          <div>
+            <input placeholder="Ingrédient"  v-model="$v.recipe.ingredients.$model" >
+          </div> 
+      </div>
+       <span v-if="$v.recipe.ingredients.$dirty && !$v.recipe.ingredients.required">Veuillez choisir au moins un ingrédient</span>
+    </div> -->
 
     <div class="recipe-form__group">
       <label for="time">Temps de préparation :</label>
@@ -79,22 +83,23 @@
         placeholder="Saisissez le nombre de personnes">
       <span v-if="$v.recipe.personnes.$dirty && !$v.recipe.personnes.required">Veuillez saisir un nombre de personne</span>
     </div>
-
-    <div class="recipe-form__group">
+    
+    <!-- work here -->
+    <!-- <div class="recipe-form__group">
       <label for="step">Etapes de préparation</label>
-      <div class="textarea-block" v-for="(step, index) in steps" :key="step.id" :id="step.id">
-        <textarea 
+      <div class="textarea-block" v-for="(step, index) in steps" :key="step.id"  :id="step.id">
+        <textarea
           type="text" 
-          v-model="$v.recipe.etapes.$model" 
+          :value="steps.value" 
           @blur="$v.recipe.etapes.$touch()" 
-          placeholder="Saisissez l'étape de préparation"></textarea> <!--:value="steps.value" -->
+           placeholder="Saisissez l'étape de préparation"></textarea>          
           <button v-if="counterTextarea > 1" @click="steps.splice(index, 1)">x</button>
       </div>
+      <button class="addField" @click.prevent="addField">+</button>
       <span v-if="$v.recipe.etapes.$dirty && !$v.recipe.etapes.required">
           Veuillez saisir les différentes étapes de la recette
       </span>
-      <button class="addField" @click.prevent="addField">+</button>
-    </div>
+    </div> -->
 
     <div class="recipe-form__group">
       <label for="photo">Photo :</label>
@@ -123,7 +128,7 @@ export default {
                     description: "",
                     etapes: "",
                     ingredients : "",
-                    niveau: "",
+                    niveau: "", 
                     personnes: "",
                     tempsPreparation: "",
                     photo: ""
@@ -134,9 +139,14 @@ export default {
      data: function() {
         return{
           counterTextarea : 1,
+          counterIngredient : 1,
           steps: [{
             id: 'etapes1',
             label: 'Saisissez votre étape',
+            value: '',
+          }],
+          ingredients: [{
+            id: 'ingredient1',
             value: '',
           }],
         }
@@ -164,18 +174,26 @@ export default {
         }
     },
     methods: {
-        onSubmit: function() {
-        if(this.$v.recipe.$invalid) 
-            return this.$v.recipe.$touch();
-            this.$emit('send', this.recipe);
+        onSubmit() {
+          console.log('Submit')
+          if(this.$v.recipe.$invalid) 
+              return this.$v.recipe.$touch()
+              this.$emit('send', this.recipe)
         },
-        addField(){
-          this.steps.push({
-            id: `etapes${++this.counterTextarea}`,
-            label: "Saisissez votre étape",
-            value: '',
-          });
-        },
+        // addField(){
+        //   this.steps.push({
+        //     id: `etapes${++this.counterTextarea}`,
+        //     label: "Saisissez votre étape",
+        //     value: '',
+        //   });
+        // },
+        //  addField(){
+        //   this.ingredients.push({
+        //     id: `ingredient${++this.counterIngredient}`,
+        //     label: "Saisissez votre étape",
+        //     value: '',
+        //   });
+        // },
         // removeField(step){
         //   this.steps.$remove(step);
         // }
@@ -238,6 +256,25 @@ export default {
           width:50px;
           margin:10px 0;
         }
+        &--ingredient{
+          .ingredients-bloc{
+            display:flex;
+            align-items:center;
+            @media screen and(max-width:480px){
+              flex-direction:column;
+              align-items:flex-start
+            }
+
+            input,select{
+              width:100px;
+              margin: 5px;
+
+              @media screen and(max-width:480px){
+                width: 220px;;
+              }
+          }    
+        }
+      }
     }
     .actions{
         button{

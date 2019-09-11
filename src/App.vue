@@ -32,6 +32,7 @@ export default {
 .wrapper{
   color:white;
   width:100%;
+  min-height:100vh;
   background: #2C2C2C;
   max-width:1680px;
   ul{
