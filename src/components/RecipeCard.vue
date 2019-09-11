@@ -14,7 +14,7 @@
 
         <div class="btn-custom">
           <button class="btn-custom--edit" @click="edit">Modifier</button> 
-          <button class="btn-custom--remove" @click="remove">Supprimer</button> 
+          <button class="btn-custom--remove" @click="onRemove">Supprimer</button> 
         </div>
 
       </div>
@@ -50,13 +50,13 @@ export default {
     }
   },
   methods: {
-      edit(){
+    edit(){
 
-      },
-      remove(){
-            
-      }
-  },
+    },
+    onRemove() {
+        this.$emit("remove", this.recipe);
+    }
+  }
 }
 </script>
 
@@ -72,6 +72,9 @@ export default {
     cursor: pointer;
     background: black;
     transition: 0.5s;
+    &:active{
+      outline:none;
+    }
     
     &:hover{
       transform: scale(1.02);

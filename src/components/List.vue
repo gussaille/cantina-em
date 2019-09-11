@@ -1,5 +1,7 @@
 <template>
   <div class="list">
+    <button id="show-modal" @click="showModal = true">Show Modal</button>
+    
     <form class="form-filter" @submit.prevent>
         <input type="text" v-model="searchValue" placeholder="Veuillez saisir un nom de recette">
 
@@ -15,25 +17,29 @@
       </form>
 
     <div v-if="recipesList" class="recipe-list">    
-        <RecipeCard v-for="recipe in filteredList" :key="recipe.id" :recipe="recipe"/>
+        <RecipeCard  @remove="removeRecipe" v-for="recipe in filteredList" :key="recipe.id" :recipe="recipe"/>
     </div>
+
+    <RemoveModal v-if="showModal" @close="showModal = false"/>
   </div>
 </template>
 
 <script>
 
 import RecipeCard from  './RecipeCard'
+import RemoveModal from  './RemoveModal'
 import userService from "../services/userService"
 
 export default {
   name: 'List',
-  components: {RecipeCard},
+  components: {RecipeCard, RemoveModal},
   props:{},
   data : function(){
     return{
         recipesList : null,
         searchValue: "",
-        selectValue: "name"
+        selectValue: "name",
+        showModal : false
     }
   },
   created(){
@@ -70,7 +76,9 @@ export default {
   },
   
   methods :{
-
+    removeRecipe: function(){
+      this.showModal = true;
+    }
   }
 }
 </script>
