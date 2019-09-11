@@ -35,67 +35,51 @@
         <span v-if="$v.recipe.niveau.$dirty && !$v.recipe.niveau.required">Veuillez choisir un niveau de difficulté</span>
     </div>
 
-     <!-- <div class="recipe-form__group recipe-form__group--ingredient">
+
+
+    <div class="recipe-form__group recipe-form__group--ingredient">
         <label for="ingredients">Liste des ingrédients :</label>
-        <div class="ingredients-bloc" v-for="ingredient in ingredients" :id="ingredient.id" :key="ingredient.id">
-          <div> 
-            <input placeholder="Quantité">
-          </div>
 
-          <div>
-            <select>
-                <option value="">Mesure</option>
-                <option value="l">l</option>
-                <option value="cl">cl</option>
-                <option value="kg">kg</option>
-                <option value="g">g</option>
-                <option value="mg">mg</option> 
-            </select>
-          </div>
+        <FormIngredients/>
+  
+        <button class="addField" @click.prevent="addField">+</button>
+    </div>
 
-          <div>
-            <input placeholder="Ingrédient"  v-model="$v.recipe.ingredients.$model" >
-          </div> 
-      </div>
-       <span v-if="$v.recipe.ingredients.$dirty && !$v.recipe.ingredients.required">Veuillez choisir au moins un ingrédient</span>
-    </div> -->
 
     <div class="recipe-form__group">
       <label for="time">Temps de préparation :</label>
       <input
         type="number"
-        v-model="$v.recipe.tempsPreparation.$model"
+        v-model.number="$v.recipe.tempsPreparation.$model"
         @blur="$v.recipe.tempsPreparation.$touch()"
         id="time"
         placeholder="Saisissez le temps de préparation en minutes"
       >
       <span v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.required">Veuillez indiquer un temps de préparation en minute</span>
-       <span v-if="!$v.recipe.tempsPreparation.integer">Veuillez indiquer un temps de préparation valide</span>
     </div>
 
     <div class="recipe-form__group">
       <label for="guest">Nombre de personne :</label>
       <input
         type="number"
-        v-model="$v.recipe.personnes.$model"
+        v-model.number="$v.recipe.personnes.$model"
         @blur="$v.recipe.personnes.$touch()"
         id="guest"
         placeholder="Saisissez le nombre de personnes">
       <span v-if="$v.recipe.personnes.$dirty && !$v.recipe.personnes.required">Veuillez saisir un nombre de personne</span>
     </div>
     
-    <!-- work here -->
     <!-- <div class="recipe-form__group">
       <label for="step">Etapes de préparation</label>
-      <div class="textarea-block" v-for="(step, index) in steps" :key="step.id"  :id="step.id">
+      <div class="textarea-block" v-for="etape in recipe.etapes" :key="etape.id" :id="etape.id">
         <textarea
           type="text" 
-          :value="steps.value" 
+        v-model="$v.recipe.etapes.$model"
           @blur="$v.recipe.etapes.$touch()" 
-           placeholder="Saisissez l'étape de préparation"></textarea>          
-          <button v-if="counterTextarea > 1" @click="steps.splice(index, 1)">x</button>
-      </div>
-      <button class="addField" @click.prevent="addField">+</button>
+           placeholder="Saisissez l'étape de préparation"></textarea>           -->
+          <!-- <button v-if="counterTextarea > 1" @click="steps.splice(index, 1)">x</button> -->
+      <!-- </div>
+      <button class="addField" @click.prevent="addTextArea">+</button>
       <span v-if="$v.recipe.etapes.$dirty && !$v.recipe.etapes.required">
           Veuillez saisir les différentes étapes de la recette
       </span>
@@ -114,86 +98,59 @@
 
 <script>
 
-import { required, integer, between, url } from "vuelidate/lib/validators";
+import FormIngredients from "./FormIngredients";
+import { required, url, integer } from "vuelidate/lib/validators";
 
 export default {
     name: "Form",
+    components: { FormIngredients },
     props: {
-        recipe: {
-            type: Object,
-            default: function() {
-                return {
-                    id: null,
-                    titre: "",
-                    description: "",
-                    etapes: "",
-                    ingredients : "",
-                    niveau: "", 
-                    personnes: "",
-                    tempsPreparation: "",
-                    photo: ""
-                };
-            }
-        }
+      ingredients:[]
     },
      data: function() {
         return{
-          counterTextarea : 1,
-          counterIngredient : 1,
-          steps: [{
-            id: 'etapes1',
-            label: 'Saisissez votre étape',
-            value: '',
-          }],
-          ingredients: [{
-            id: 'ingredient1',
-            value: '',
-          }],
+          recipe: {     
+            id: null,
+            titre: "",
+            description: "",
+            // etapes: [],  
+            ingredients: [
+              ['', '', '']
+            ],                 
+            niveau: "", 
+            personnes: "",
+            tempsPreparation: "",
+            photo: ""
         }
+      }
     }, 
     validations: {
         recipe: {
-            titre: { 
-              required
-            },
+            titre: { required },
             description: { required },
-            etapes: { required },
+            // etapes: { required },
             ingredients: { required },
             niveau: { required },
-            personnes: { 
-              required, 
-              integer, 
-              between: between(1, 1000)
-            },
-            tempsPreparation: { 
-              required, 
-              integer,
-              between: between(1, 1000)
-            },
+            personnes: { required, integer },
+            tempsPreparation: { required, integer },
             photo:{url}
         }
     },
     methods: {
         onSubmit() {
-          console.log('Submit')
-          if(this.$v.recipe.$invalid) 
-              return this.$v.recipe.$touch()
-              this.$emit('send', this.recipe)
+        this.$v.recipe.$touch();
+        if (this.$v.recipe.$pending || this.$v.recipe.$error) return;
+            alert("Form submitted");
+            this.$emit('send', this.recipe)
         },
-        // addField(){
-        //   this.steps.push({
-        //     id: `etapes${++this.counterTextarea}`,
-        //     label: "Saisissez votre étape",
-        //     value: '',
-        //   });
-        // },
-        //  addField(){
-        //   this.ingredients.push({
-        //     id: `ingredient${++this.counterIngredient}`,
-        //     label: "Saisissez votre étape",
-        //     value: '',
-        //   });
-        // },
+
+        addField: function () {
+          this.recipe.ingredients.push();
+        },
+
+        addTextArea: function(){
+          this.recipes.etapes.push({ etape : ''});
+        },
         // removeField(step){
         //   this.steps.$remove(step);
         // }
@@ -201,7 +158,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 
 .recipe-form {
     color:white;
@@ -233,6 +190,7 @@ export default {
         }
         textarea{
           width:89%;
+
           .textarea-block{
             min-height:40px;
             display:flex;
@@ -257,25 +215,9 @@ export default {
           margin:10px 0;
         }
         &--ingredient{
-          .ingredients-bloc{
-            display:flex;
-            align-items:center;
-            @media screen and(max-width:480px){
-              flex-direction:column;
-              align-items:flex-start
-            }
-
-            input,select{
-              width:100px;
-              margin: 5px;
-
-              @media screen and(max-width:480px){
-                width: 220px;;
-              }
-          }    
+   
         }
       }
-    }
     .actions{
         button{
             width: 250px; 

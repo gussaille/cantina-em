@@ -83,6 +83,9 @@ export default {
     display:flex;
     justify-content: space-around;
     align-items:center;
+    @media screen and(min-width:780px) and (orientation: landscape){
+      width:80%;
+    }
     @media screen and(max-width:480px){
       flex-direction: column;
     }
@@ -91,9 +94,6 @@ export default {
       width:80%;
       padding: 12px;
       max-width:420px;
-      @media screen and(max-width:480px){
-        
-      }
     }
     &__select{
       display:flex;

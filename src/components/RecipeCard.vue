@@ -87,6 +87,7 @@ export default {
       @media screen and(max-width:480px){
         display:flex;
         align-items:center;
+        justify-content: space-around;
       }
       &__illustration {
         display: block;
@@ -120,7 +121,7 @@ export default {
                 cursor: pointer;
                 width:auto;
                 @media screen and(min-width:480px){
-                  width: 120px;
+                  width: 90px;
                 }
                 padding:10px;
                 outline: 0;
