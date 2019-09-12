@@ -12,7 +12,7 @@
 
             <div class="button-block">
                 <div class="button-modal">
-                    <button id="btn-remove" class="button-modal--remove" @click="$emit('confirm')">Supprimer</button>
+                    <button id="btn-remove" class="button-modal--remove">Supprimer</button>
                     <button id="btn-save" class="button-modal--save" @click="$emit('close')">Annuler</button>
                 </div>
             </div>
@@ -26,14 +26,11 @@
 <script>
     export default {
         name: 'RemoveModal',
-        data : function(){
+          data : function(){
             return {
                 showModal : false,
             }
         },
-        methods: {
-          
-        }
     }
 </script>
 
@@ -66,7 +63,7 @@
         padding:10px;
         
         &--remove, &--save{
-                border-radius: 4px;
+            border-radius: 4px;
             background-color:darkgrey;
             color:white;
             outline:none;

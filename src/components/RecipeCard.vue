@@ -1,4 +1,5 @@
 <template>
+<button  class="btn-block" @click="goRecipe">
   <article class="recipe-card">
     <h1 class="recipe-card__title">{{recipe.titre}}</h1>
     <div class="informations">
@@ -20,6 +21,7 @@
       </div>
     </div>
   </article>
+  </button>
 </template>
 
 <script>
@@ -53,15 +55,26 @@ export default {
     edit(){
 
     },
+    //REDIRECT TO THE RECIPE PAGE
+    goRecipe(){
+      this.$router.push({path:"/recipe/" + this.recipe.id});
+    },
+    //EVENT TO EMIT TO THE PARENT IN ORDER TO REMOVE THE RECIPE
     onRemove() {
         this.$emit("remove", this.recipe);
-    }
+    },
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+  .btn-block{
+    background: none;
+    border:none;
+    outline:none;
+  }
+
   .recipe-card{
     width:95%;
     max-width:320px;
@@ -71,13 +84,9 @@ export default {
     cursor: pointer;
     background: black;
     transition: 0.5s;
+
     &:active{
       outline:none;
-    }
-    
-    &:hover{
-      transform: scale(1.02);
-      transition: 0.5s;
     }
 
     &__title{
@@ -86,11 +95,13 @@ export default {
 
     .informations {
       color: white;
+
       @media screen and(max-width:480px){
         display:flex;
         align-items:center;
         justify-content: space-around;
       }
+
       &__illustration {
         display: block;
         width:150px;
@@ -101,42 +112,48 @@ export default {
           height:200px;
         }
       }
+
       &__preparation{
         &__level{
           text-transform:capitalize;
           color:white;
         }
+
         .btn-custom{
-            display: flex;
-            justify-content: space-around;
+          display: flex;
+          justify-content: space-around;
+
+          @media screen and(min-width:480px){
+              width: 60%;
+              margin: 0 auto;
+              max-width: 500px;
+          }
+
+          @media screen and(max-width:320px){
+            flex-direction: column;
+            justify-content: center;
+          }
+          
+          button {
+            cursor: pointer;
+            width:auto;
+            padding:10px;
+            outline: 0;
+            border: 0;
+            margin: 20px auto;
+
             @media screen and(min-width:480px){
-                width: 60%;
-                margin: 0 auto;
-                max-width: 500px;
+              width: 90px;
             }
+          
             @media screen and(max-width:320px){
-              flex-direction: column;
-              justify-content: center;
+              margin:5px auto;
+              width:100px;
             }
-            
-            button {
-                cursor: pointer;
-                width:auto;
-                @media screen and(min-width:480px){
-                  width: 90px;
-                }
-                padding:10px;
-                outline: 0;
-                border: 0;
-                margin: 20px auto;
-                @media screen and(max-width:320px){
-                  margin:5px auto;
-                  width:100px;
-                }
-            }
-            &--remove{
-                background-color:red;
-            }
+          }
+          &--remove{
+              background-color:red;
+          }
         }
       }
     }

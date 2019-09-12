@@ -1,5 +1,9 @@
 <template>
   <div class="list">    
+    <button @click="showModal = true">Modal Open</button>
+
+    <!-- a mettre dans un filter -->
+
     <form class="form-filter" @submit.prevent>
         <input type="text" v-model="searchValue" placeholder="Veuillez saisir un nom de recette">
 
@@ -21,7 +25,7 @@
                     :recipe="recipe"/>
     </div>
 
-    <RemoveModal v-if="showModal" @close="showModal = false" @confirm='removeRecipe'/>
+    <RemoveModal v-if="showModal" @close="showModal = false"/>
   </div>
 </template>
 
@@ -78,6 +82,7 @@ export default {
   
   methods :{
     removeRecipe(recipeToDelete){
+      // if(this.removeCheck === true){
         userService.removeRecipe(recipeToDelete)
           .then(()=> {
             let indexList = this.recipesList.indexOf(recipeToDelete)
@@ -89,7 +94,8 @@ export default {
           .catch(()=> {
             alert('Erreur')
         })
-      }
+      // }
+    },
   }
 }
 </script>
@@ -105,7 +111,7 @@ export default {
     @media screen and(min-width:780px) and (orientation: landscape){
       width:80%;
     }
-    @media screen and(max-width:480px){
+    @media screen and(max-width:650px){
       flex-direction: column;
     }
 
