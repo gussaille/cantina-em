@@ -11,14 +11,9 @@
           </div>
 
             <div class="button-block">
-                <div class="button-modal button-modal--remove ">
-                    <label for="btn-remove">Oui</label>
-                    <input id="btn-remove" class="button-modal--remove" @click="removeCheck = true" v-model="removeCheck" type="radio">
-                </div>
-
-                <div class="button-modal button-modal--save ">
-                    <label for="btn-save">Non</label>
-                    <input id="btn-save" class="button-modal--save" type="radio" @click="$emit('close')">
+                <div class="button-modal">
+                    <button id="btn-remove" class="button-modal--remove" @click="$emit('confirm')">Supprimer</button>
+                    <button id="btn-save" class="button-modal--save" @click="$emit('close')">Annuler</button>
                 </div>
             </div>
         </div>
@@ -31,12 +26,14 @@
 <script>
     export default {
         name: 'RemoveModal',
-          data : function(){
+        data : function(){
             return {
                 showModal : false,
-                removeCheck: false,
             }
         },
+        methods: {
+          
+        }
     }
 </script>
 
@@ -60,27 +57,26 @@
 
 
 .button-block{
-    width:80%;
+    width:60%;
     margin: 0 auto;
-    display: flex;
+
     .button-modal{
-        border:1px solid lightgrey;
-        border-radius: 2px;
-        margin:0 5px;
+        display: flex;
+        justify-content: space-around;
         padding:10px;
-        width:120px;
-        border-radius:20px;
         
-        &--remove{
+        &--remove, &--save{
+                border-radius: 4px;
             background-color:darkgrey;
             color:white;
+            outline:none;
+            padding:10px;
+            border:1px solid darkgrey;
         }
-        &--save{
 
-        }
-        
-        input{
-            display:none;
+        &--save{
+            background-color: transparent;
+            color:darkgrey;
         }
     }
 }

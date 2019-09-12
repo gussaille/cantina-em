@@ -21,7 +21,7 @@
                     :recipe="recipe"/>
     </div>
 
-    <RemoveModal v-if="showModal" @close="showModal = false"/>
+    <RemoveModal v-if="showModal" @close="showModal = false" @confirm='removeRecipe'/>
   </div>
 </template>
 
@@ -78,7 +78,6 @@ export default {
   
   methods :{
     removeRecipe(recipeToDelete){
-      // if(this.removeCheck === true){
         userService.removeRecipe(recipeToDelete)
           .then(()=> {
             let indexList = this.recipesList.indexOf(recipeToDelete)
@@ -90,8 +89,7 @@ export default {
           .catch(()=> {
             alert('Erreur')
         })
-      // }
-    }
+      }
   }
 }
 </script>
