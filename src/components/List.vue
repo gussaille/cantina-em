@@ -1,22 +1,36 @@
 <template>
   <div class="list">    
-    <button @click="showModal = true">Modal Open</button>
-
-    <!-- a mettre dans un filter -->
-
     <form class="form-filter" @submit.prevent>
-        <input type="text" v-model="searchValue" placeholder="Veuillez saisir un nom de recette">
+      <div class="form-filter__search">
+        <label for="searchVal">Rechercher :</label>
+        <input type="text" id="searchVal" v-model="searchValue" placeholder="Veuillez saisir un nom de recette">
+      </div>
 
-          <div class="form-filter__select">
-              <label for="filter">Filtrer par :</label>
-              <select name="filterBy" v-model="selectValue">
-                  <option value="name">Nom de la recette</option>
-                  <option value="level">Niveau de difficulté</option>
-                  <option value="guest">Nombre de personne</option>
-                  <option value="time">Temps de préparation</option>
-              </select>
-          </div>
-      </form>
+      <div class="form-filter__select">
+          <h3>Filtrer par :</h3>
+        <div>
+          <input type="checkbox" v-model="selectValue[0]" value="name" id="name" name="nom">
+          <label for="name">Nom de recette</label>
+        </div>
+        <div>
+          <select v-model="selectValue[1]" value="level" id="level" name="niveau">
+            <option disabled value="">-- Niveau de difficulté --</option>
+            <option value="all">Tous niveaux</option>
+            <option value="padawan">Padawan</option>
+            <option value="jedi">Jedi</option>
+            <option value="maitre">Maitre</option>
+          </select>
+        </div>
+        <div> 
+          <input type="number" v-model.number="selectValue[2]" min="1" max="100" value="guest" id="guest" name="personne">
+          <label for="guest"> Nombre de personne </label>
+        </div>
+        <div>
+          <input type="number" v-model.number="selectValue[3]" value="time" id="time" name="time">
+          <label for="time"> Temps de préparation (en mn)</label>
+        </div>
+      </div>
+    </form>
 
     <div v-if="recipesList" class="recipe-list">    
         <RecipeCard @remove="removeRecipe" 
@@ -25,7 +39,8 @@
                     :recipe="recipe"/>
     </div>
 
-    <RemoveModal v-if="showModal" @close="showModal = false"/>
+    <RemoveModal v-if="showModal" @close="showModal = false" @confirm='removeRecipe'/>
+
   </div>
 </template>
 
@@ -38,13 +53,12 @@ import userService from "../services/userService"
 export default {
   name: 'List',
   components: {RecipeCard, RemoveModal},
-  props:{},
-  data : function(){
+    data : function(){
     return{
         recipesList : null,
         searchValue: "",
-        selectValue: "name",
-        showModal : false,
+        selectValue: [true],
+        showModal : false
     }
   },
   created(){
@@ -56,33 +70,43 @@ export default {
       });
   },
   computed: {
-        filteredList: function() {
-            return this.recipesList.filter(({ titre, niveau, tempsPreparation, personnes }) => {
-                let searchVal = this.searchValue.toLowerCase();
-                    titre = titre.toLowerCase();
-                    personnes = personnes.toString().toLowerCase();
-                    tempsPreparation = tempsPreparation.toString();
-                    niveau = niveau.toLowerCase();
 
-                if(this.selectValue === "name"){
-                  return `${titre}`.includes(searchVal)
-                } 
-                else if(this.selectValue === 'guest'){
-                  return `${personnes}`.includes(searchVal)
-                } 
-                else if( this.selectValue === 'time'){
-                  return `${tempsPreparation}`.includes(searchVal)
-                } 
-                else { 
-                  return `${niveau}`.includes(searchVal)
-                }
-          });
-      }
+  filteredList: function() {
+    return this.recipesList.filter(({ titre, niveau, tempsPreparation, personnes }) => {
+        let searchVal = this.searchValue.toLowerCase();
+            titre = titre.toLowerCase();
+            personnes = personnes.toString();
+            tempsPreparation = tempsPreparation.toString();
+            niveau = niveau.toLowerCase();
+
+        if(this.selectValue[0] === true){
+          return `${titre}`.includes(searchVal)
+        }
+
+        if(this.selectValue[1] === "padawan") { 
+          return `${niveau}`.includes("padawan")
+        }
+          if(this.selectValue[1] === "jedi") { 
+          return `${niveau}`.includes("jedi")
+        }
+        if(this.selectValue[1] === "maitre") { 
+          return `${niveau}`.includes("maitre")
+        }
+          
+        else if(this.selectValue[2] === personnes){
+          console.log()
+          return `${personnes}`.includes(searchVal)
+        } 
+
+        else if( this.selectValue[3] === true){
+          return `${tempsPreparation}`.includes(searchVal)
+        } 
+      });
+    }
   },
   
   methods :{
     removeRecipe(recipeToDelete){
-      // if(this.removeCheck === true){
         userService.removeRecipe(recipeToDelete)
           .then(()=> {
             let indexList = this.recipesList.indexOf(recipeToDelete)
@@ -94,8 +118,7 @@ export default {
           .catch(()=> {
             alert('Erreur')
         })
-      // }
-    },
+      }
   }
 }
 </script>
@@ -104,27 +127,65 @@ export default {
 <style scoped lang="scss">
 .list{
   .form-filter{
+    color:white;
     margin: 20px auto;
     display:flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     align-items:center;
     @media screen and(min-width:780px) and (orientation: landscape){
       width:80%;
     }
-    @media screen and(max-width:650px){
+    @media screen and(max-width:480px){
       flex-direction: column;
     }
+    &__search{
+      width:100%;
+      display:flex;
+      flex-direction: column ;
+      max-width:330px;
+      @media screen and(min-width:800px){
+        max-width:400px;
+      }
 
-    input{
-      width:80%;
-      padding: 12px;
-      max-width:420px;
+      input{
+        width:100%;
+        margin:0 auto;
+        padding: 12px;
+
+        @media screen and(max-width:870px){
+          width:80%;
+        }
+      }
+      label{
+        width:88%;
+        @media screen and(min-width:870px){
+          width: 100%;
+        }
+        margin:0 auto;
+        text-align:left;
+      }
     }
     &__select{
       display:flex;
+      width:230px;
       flex-direction: column;
+      margin: 10px
+
       label{
-        color:white;
+        margin:0 auto;
+      }
+     
+      input{
+       width:50px;
+       padding:5px;
+       margin:5px 0;
+      }
+      div{
+        width: 100%;
+        display:flex;
+        align-items:center;
+        margin: 5px auto;
       }
     }
   }
