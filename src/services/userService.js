@@ -27,4 +27,10 @@ export default {
             .then(res => res.data)
             .catch(errorHandler)
     },
+
+    removeRecipe: function (recipeObject) {
+        return axios.delete(`${API_ENDPOINT}/recipe/${recipeObject.id}`)
+            .then(res => res.data)
+            .catch(errorHandler)
+    },
 }

@@ -63,7 +63,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   .recipe-card{
-    border-radius:20px;
     width:95%;
     max-width:320px;
     border: 2px solid black;

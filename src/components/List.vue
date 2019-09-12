@@ -1,7 +1,5 @@
 <template>
-  <div class="list">
-    <button id="show-modal" @click="showModal = true">Show Modal</button>
-    
+  <div class="list">    
     <form class="form-filter" @submit.prevent>
         <input type="text" v-model="searchValue" placeholder="Veuillez saisir un nom de recette">
 
@@ -17,7 +15,10 @@
       </form>
 
     <div v-if="recipesList" class="recipe-list">    
-        <RecipeCard  @remove="removeRecipe" v-for="recipe in filteredList" :key="recipe.id" :recipe="recipe"/>
+        <RecipeCard @remove="removeRecipe" 
+                    v-for="recipe in filteredList" 
+                    :key="recipe.id" 
+                    :recipe="recipe"/>
     </div>
 
     <RemoveModal v-if="showModal" @close="showModal = false"/>
@@ -39,7 +40,7 @@ export default {
         recipesList : null,
         searchValue: "",
         selectValue: "name",
-        showModal : false
+        showModal : false,
     }
   },
   created(){
@@ -76,8 +77,20 @@ export default {
   },
   
   methods :{
-    removeRecipe: function(){
-      this.showModal = true;
+    removeRecipe(recipeToDelete){
+      // if(this.removeCheck === true){
+        userService.removeRecipe(recipeToDelete)
+          .then(()=> {
+            let indexList = this.recipesList.indexOf(recipeToDelete)
+            if(indexList > -1){
+              this.recipesList.splice(indexList, 1);
+            }
+            alert("La recette a été supprimée")
+          })
+          .catch(()=> {
+            alert('Erreur')
+        })
+      // }
     }
   }
 }

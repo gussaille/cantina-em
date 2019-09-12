@@ -10,13 +10,17 @@
             </slot>
           </div>
 
-            <button class="modal-default-button" @click="$emit('close')">
-                Oui
-            </button>
-            
-            <button class="modal-default-button" @click="$emit('close')">
-                Non
-            </button>
+            <div class="button-block">
+                <div class="button-modal button-modal--remove ">
+                    <label for="btn-remove">Oui</label>
+                    <input id="btn-remove" class="button-modal--remove" @click="removeCheck = true" v-model="removeCheck" type="radio">
+                </div>
+
+                <div class="button-modal button-modal--save ">
+                    <label for="btn-save">Non</label>
+                    <input id="btn-save" class="button-modal--save" type="radio" @click="$emit('close')">
+                </div>
+            </div>
         </div>
       </div>
     </div>
@@ -29,13 +33,14 @@
         name: 'RemoveModal',
           data : function(){
             return {
-                showModal : false
+                showModal : false,
+                removeCheck: false,
             }
         },
     }
 </script>
 
-<style>
+<style lang="scss">
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -51,6 +56,33 @@
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+}
+
+
+.button-block{
+    width:80%;
+    margin: 0 auto;
+    display: flex;
+    .button-modal{
+        border:1px solid lightgrey;
+        border-radius: 2px;
+        margin:0 5px;
+        padding:10px;
+        width:120px;
+        border-radius:20px;
+        
+        &--remove{
+            background-color:darkgrey;
+            color:white;
+        }
+        &--save{
+
+        }
+        
+        input{
+            display:none;
+        }
+    }
 }
 
 .modal-container {
