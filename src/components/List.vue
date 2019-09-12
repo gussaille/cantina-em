@@ -71,38 +71,62 @@ export default {
   },
   computed: {
 
-  filteredList: function() {
-    return this.recipesList.filter(({ titre, niveau, tempsPreparation, personnes }) => {
-        let searchVal = this.searchValue.toLowerCase();
-            titre = titre.toLowerCase();
-            personnes = personnes.toString();
-            tempsPreparation = tempsPreparation.toString();
-            niveau = niveau.toLowerCase();
+ filteredList: function() {
+      return this.recipesList.filter(({ titre, niveau, tempsPreparation, personnes }) => {
+          let searchVal = this.searchValue.toLowerCase();
+              titre = titre.toLowerCase();
+              personnes = personnes.toString();
+              tempsPreparation = tempsPreparation.toString();
+              niveau = niveau.toLowerCase();
 
-        if(this.selectValue[0] === true){
-          return `${titre}`.includes(searchVal)
-        }
+          if(this.selectValue[0] === true){
+           
+            if(this.selectValue[1] === "padawan") { 
+              return `${niveau}`.includes("padawan")
+            }
 
-        if(this.selectValue[1] === "padawan") { 
-          return `${niveau}`.includes("padawan")
-        }
-          if(this.selectValue[1] === "jedi") { 
-          return `${niveau}`.includes("jedi")
-        }
-        if(this.selectValue[1] === "maitre") { 
-          return `${niveau}`.includes("maitre")
-        }
-          
-        else if(this.selectValue[2] === personnes){
-          console.log()
-          return `${personnes}`.includes(searchVal)
-        } 
+            else if(this.selectValue[1] === "jedi") {
+              return `${niveau}`.includes("jedi")
+            }
 
-        else if( this.selectValue[3] === true){
-          return `${tempsPreparation}`.includes(searchVal)
-        } 
-      });
-    }
+            else if(this.selectValue[1] === "maitre") { 
+              return `${niveau}`.includes("maitre")
+            }
+
+            else if(this.selectValue[2] === personnes){
+            console.log()
+            return `${personnes}`.includes(searchVal)
+            } 
+
+            else if(this.selectValue[3] === tempsPreparation.{
+              return `${tempsPreparation}`.includes(10)
+            } 
+           return `${titre}`.includes(searchVal)
+          }
+         
+          if(this.selectValue[1] === "padawan") { 
+            console.log('padawan');
+            return `${niveau}`.includes("padawan")
+          }
+           if(this.selectValue[1] === "jedi") {
+             console.log('jedi'); 
+            return `${niveau}`.includes("jedi")
+          }
+          if(this.selectValue[1] === "maitre") { 
+            console.log('maitre');
+            return `${niveau}`.includes("maitre")
+          }
+            
+          else if(this.selectValue[2] === personnes){
+            console.log()
+            return `${personnes}`.includes(searchVal)
+          } 
+
+          else if( this.selectValue[3] === true){
+            return `${tempsPreparation}`.includes(searchVal)
+          } 
+        });
+      }
   },
   
   methods :{
@@ -170,7 +194,7 @@ export default {
       display:flex;
       width:230px;
       flex-direction: column;
-      margin: 10px
+      margin:
 
       label{
         margin:0 auto;
