@@ -24,17 +24,27 @@
 
             <section>
                 <div class="recipe__ingredients">
-                    <ul class="recipe__subtitle">Ingrédients</ul>
+                     <div class="recipe__header">
+                        <h3 class="recipe__subtitle">Ingrédients</h3>
+                    </div>
+                    <ul>
                     <li class="recipe__text" v-for="(ingredient, index) in recipe.ingredients" :key="index">
-                        {{ recipe.ingredients[index] }}</li>
+                        {{ recipe.ingredients[index].join(' ') }}</li>
+                    </ul>
                 </div>
 
                 <hr>
 
                 <div class="recipe__cooking">
-                    <ul class="recipe__subtitle">Préparation</ul>
+                    <div class="recipe__header">
+                          <img src="/img/lightsaber.png" class="recipe__header__illustration" alt="Sabre Laser">
+                        <h3 class="recipe__subtitle">Préparation</h3>
+                      
+                    </div>
+                    <ul>
                     <li class="recipe__text" v-for="(etape, step) in recipe.etapes" :key="step">
                         {{ recipe.etapes[step] }}</li>
+                    </ul>
                 </div>
             </section>
             <div class="btn-custom">
@@ -103,6 +113,7 @@ export default {
 <style scoped lang="scss">
 
 .recipe{
+    padding:20px 0;
     color:white;
     min-height:100vh;
 
@@ -117,30 +128,37 @@ export default {
     }
 
     .container{
+        box-shadow: 0px 2px 40px 4px rgba(81, 203, 238, 0.8);
+        max-width:720px;
+        @media screen and(max-width:480px){
+            width:90%;
+            margin: 0 auto;
+        }
+        margin: 0 auto;
         section:first-child{
             display:flex;
             flex-direction:column;
             align-items: center;
             width:80%;
             margin:0 auto;
+            padding-top:20px;
 
             @media screen and(min-width:480px){
                 align-items:center;
                 flex-direction:row;
                 justify-content:space-around;
-                width:60%;
+                width:75%;
                 max-width:1680px;
                 margin: 50px auto;
             }
             .recipe__banner {
                 display: block;
                 border-radius: 60px;
-                width:100%;
-                height:260px;
+                width:80%;
                 margin:20px auto;
 
                 @media screen and(min-width:480px){
-                    width:40%;
+                    width:50%;
                     margin: unset;
                     max-width:200px;
                     height:auto;
@@ -169,8 +187,8 @@ export default {
                 }
             }  
         }
-        section:last-of-type{
-            width: 100%;
+        section:last-of-type{                      width: 90%;
+            margin: 0 auto;
             text-align: left;
 
             .recipe{
@@ -181,6 +199,23 @@ export default {
                     margin: 10px auto;
                     padding-left: 15px;
                     text-align: left;
+                    
+                    .recipe__header{
+                        display:flex;
+                        &__illustration{
+                            margin-right:15px;
+                            width:50px;
+                        }
+                    }
+                }
+                &__cooking{
+                    &__illustration{
+                        float:left;
+                        width:50px;
+                    }
+                    li{
+                        list-style-type: decimal;
+                    }
                 }
             }
         }
