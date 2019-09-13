@@ -22,7 +22,7 @@
           </select>
         </div>
         <div> 
-          <input type="number" v-model.number="selectValue[2]" min="1" max="100" value="guest" id="guest" name="personne">
+          <input type="number" v-model.number="selectValue[2]"  value="guest" id="guest" name="personne">
           <label for="guest"> Nombre de personne </label>
         </div>
         <div>
@@ -65,68 +65,79 @@ export default {
       userService
       .fetchAll()
       .then(recipesList => {
-          console.log(recipesList);
           this.recipesList = recipesList;
       });
   },
   computed: {
 
- filteredList: function() {
-      return this.recipesList.filter(({ titre, niveau, tempsPreparation, personnes }) => {
-          let searchVal = this.searchValue.toLowerCase();
-              titre = titre.toLowerCase();
-              personnes = personnes.toString();
-              tempsPreparation = tempsPreparation.toString();
-              niveau = niveau.toLowerCase();
+  filteredList: function() {
+      let filteredList = this.recipesList;
+      let personnesNumber;
 
-          if(this.selectValue[0] === true){
-           
-            if(this.selectValue[1] === "padawan") { 
-              return `${niveau}`.includes("padawan")
-            }
+      let searchVal = this.searchValue;
+     
+        if(this.selectValue[0] ===  true){
+          filteredList = filteredList.filter((recipe)=> recipe.titre.toLowerCase().includes(searchVal))
+        }
 
-            else if(this.selectValue[1] === "jedi") {
-              return `${niveau}`.includes("jedi")
-            }
+        if(this.selectValue[1] ===  "padawan"){
+          filteredList = filteredList.filter((recipe)=> recipe.niveau.toLowerCase().includes('padawan'))
+        }
+        if(this.selectValue[1] ===  "jedi"){
+          filteredList = filteredList.filter((recipe)=> recipe.niveau.toLowerCase().includes('jedi'))
+        }
+        if(this.selectValue[1] ===  "maitre"){
+          filteredList = filteredList.filter((recipe)=> recipe.niveau.toLowerCase().includes('maitre'))
+        }
 
-            else if(this.selectValue[1] === "maitre") { 
-              return `${niveau}`.includes("maitre")
-            }
+        //A MODIFIER FILTER PERSONNES + TEMPS DE PREPARATION 
+        if(this.selectValue[2] == personnesNumber ){
+          console.log(personnesNumber);
+          filteredList = filteredList.filter((recipe)=> recipe.personnes.toString().includes(''))
+        }
 
-            else if(this.selectValue[2] === personnes){
-            console.log()
-            return `${personnes}`.includes(searchVal)
-            } 
+        // console.dir(filteredList)
 
-            else if(this.selectValue[3] === tempsPreparation.{
-              return `${tempsPreparation}`.includes(10)
-            } 
-           return `${titre}`.includes(searchVal)
-          }
-         
-          if(this.selectValue[1] === "padawan") { 
-            console.log('padawan');
-            return `${niveau}`.includes("padawan")
-          }
-           if(this.selectValue[1] === "jedi") {
-             console.log('jedi'); 
-            return `${niveau}`.includes("jedi")
-          }
-          if(this.selectValue[1] === "maitre") { 
-            console.log('maitre');
-            return `${niveau}`.includes("maitre")
-          }
-            
-          else if(this.selectValue[2] === personnes){
-            console.log()
-            return `${personnes}`.includes(searchVal)
-          } 
+        return filteredList;
 
-          else if( this.selectValue[3] === true){
-            return `${tempsPreparation}`.includes(searchVal)
-          } 
-        });
-      }
+      // for (let i = 0; i < filteredList.length; i ++){
+      //   titre = filteredList[i].titre;
+      //    console.log(titre)
+      //    if(titre === searchVal){
+      //       return `${titre}`.includes(searchVal)
+      //    }
+      // }
+
+      //  filteredList = filteredList.filter((recipe)=> recipe.titre.includes(searchVal))
+
+    // return this.recipesList.filter(({ titre, niveau, tempsPreparation, personnes }) => {
+        
+        // if(this.selectValue[0] === true){
+
+        //   if(this.selectValue[1] === "padawan") { 
+        //     `${niveau}`.includes("padawan") && `${titre}`.includes(searchVal)
+        //   }
+
+        //   else if(this.selectValue[1] === "jedi") {
+        //     return `${niveau}`.includes("jedi")
+        //   }
+
+        //   else if(this.selectValue[1] === "maitre") { 
+        //     return `${niveau}`.includes("maitre")
+        //   }
+        //   if(this.selectValue[2] === personnes){
+        //     console.log('Personnes detecté')
+        //     return `${titre}`.includes(personnes)
+        //   } 
+          
+        //   if(this.selectValue[3] === tempsPreparation){
+        //     console.log('tempsPreparation detecté')
+        //     return `${titre}`.includes(tempsPreparation)
+        //   } 
+
+        //   return `${titre}`.includes(searchVal)
+        // }
+    }
   },
   
   methods :{
@@ -137,7 +148,9 @@ export default {
             if(indexList > -1){
               this.recipesList.splice(indexList, 1);
             }
-            alert("La recette a été supprimée")
+            alert("La recette a été supprimée") 
+            //renvoi -> modal d'accord 
+            // --> suppression
           })
           .catch(()=> {
             alert('Erreur')
@@ -194,7 +207,6 @@ export default {
       display:flex;
       width:230px;
       flex-direction: column;
-      margin:
 
       label{
         margin:0 auto;
