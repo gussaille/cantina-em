@@ -107,7 +107,8 @@ export default {
             titre: "",
             description: "",
             etapes: [],  
-            ingredients: [],                 
+            ingredients: [
+            ],                 
             niveau: "", 
             personnes: "",
             tempsPreparation: "",

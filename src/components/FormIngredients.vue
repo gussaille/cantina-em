@@ -1,11 +1,11 @@
 <template>
     <div class="ingredients-bloc">
         <div> 
-            <input placeholder="Quantité" v-model="ingredients[0][0]" @blur='sendIngredients'/>
+            <input placeholder="Quantité" v-model="ingredients[0]" @blur='sendIngredients'/>
         </div>
         
         <div>
-        <select v-model="ingredients[0][1]">
+        <select v-model="mesure">
                 <option value ="" select="selected" disabled>Mesure</option>
                 <option value="l">l</option>
                 <option value="cl">cl</option>
@@ -16,7 +16,7 @@
         </div>
 
         <div>
-            <input placeholder="Ingrédient" v-model="ingredients[0][2]">
+            <input placeholder="Ingrédient" v-model="ingredients[1]">
         </div> 
         
     </div>
@@ -33,8 +33,8 @@ export default {
     data: function(){
         return{
             ingredients: [
-                ["", ""]
-            ]                 
+            ],
+            mesure: ''              
         }
     },
     methods: {
