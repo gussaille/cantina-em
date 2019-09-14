@@ -15,8 +15,8 @@
       </div>
     </div>
     <div class="btn-custom">
-        <button class="btn-custom--edit" @click="edit">Modifier</button> 
-        <button class="btn-custom--remove" @click="onRemove">Supprimer</button> 
+        <router-link :to="`recipe/edit/${recipe.id}`" class="btn btn-custom--edit">Modifier</router-link>
+        <button class="btn btn-custom--remove" @click="onRemove">Supprimer</button> 
     </div>
   </article>
 </template>
@@ -121,15 +121,17 @@ export default {
           max-width: 500px;
       }
       
-      button {
+      .btn {
         cursor: pointer;
         position:relative;
         z-index:999;
         width:130px;
-        padding:10px;
+        padding:10px 0;
+        font-size:16px;
         outline: 0;
         border: 0;
         margin: 20px auto;
+        text-decoration: none;
 
         @media screen and(min-width:480px){
           width: 90px;
@@ -141,7 +143,13 @@ export default {
         }
       }
       &--remove{
-          background-color:red;
+        color: red;
+        border:1px solid red;
+        background-color:white;
+      }
+      &--edit{
+        color:white;
+        background-color: lightgrey;
       }
     }
   }

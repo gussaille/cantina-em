@@ -22,6 +22,12 @@ export default {
             .catch(errorHandler)
     },
 
+    updateRecipe: function (recipeObject) {
+        return axios.put(`${API_ENDPOINT}/recipe/${recipeObject.id}`, recipeObject)
+            .then(res => res.data)
+            .catch(errorHandler)
+    },
+
     addRecipe: function (recipeObject) {
         return axios.post(`${API_ENDPOINT}/recipes`, recipeObject)
             .then(res => res.data)

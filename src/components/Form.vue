@@ -134,9 +134,9 @@ export default {
     },
     methods: {
         onSubmit() {
-        this.$v.recipe.$touch();
-        if (this.$v.recipe.$pending || this.$v.recipe.$error) return;
-            this.$emit('send', this.recipe)
+         if(this.$v.recipe.$invalid) 
+            return this.$v.recipe.$touch();
+            this.$emit('send', this.recipe);
             // this.$router.push({name:'List'});
         },
 
@@ -146,6 +146,7 @@ export default {
             this.recipe.ingredients.shift();
           } 
         },
+
         getSteps: function(data){
            this.recipe.etapes.push(data)
             if(this.recipe.etapes[0] === "" ){
