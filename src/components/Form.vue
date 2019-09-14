@@ -39,11 +39,14 @@
     <div class="recipe-form__group recipe-form__group--ingredient">
         <label for="ingredients">Liste des ingrédients :</label>
 
-        <FormIngredients @send="getIngredients"/>
-        
-        <button class="addField" @click.prevent="addField">+</button>
-    </div>
+        <div v-for="(value, index) in recipe.ingredients" :key="index">
+          <FormIngredients @send="getIngredients"/>
+        </div>   
+        <span v-if="$v.recipe.ingredients.$dirty && !$v.recipe.ingredients.required">Veuillez renseigner un ingrédient</span>
 
+        <button v-if="this.recipe.ingredients != ''" class="addField" @click.prevent="addIngredients">+</button>
+     
+    </div>
 
     <div class="recipe-form__group">
       <label for="time">Temps de préparation :</label>
@@ -68,16 +71,17 @@
     </div>
     
 
-   
     <div class="recipe-form__group">
       <label for="step">Etapes de préparation</label>
-     
-      <FormSteps @send="getSteps"/>
+      
+      <div v-for="(value, index) in recipe.etapes" :key="index">
+        <FormSteps @send="getSteps"/>
+      </div>
 
-      <!-- <button class="addField" @click.prevent="addTextArea">+</button> -->
-      <!-- <span v-if="$v.recipe.etapes.$dirty && !$v.recipe.etapes.required">
+      <button class="addField" @click.prevent="addTextArea">+</button>
+      <span v-if="$v.recipe.etapes.$dirty && !$v.recipe.etapes.required">
           Veuillez saisir les différentes étapes de la recette
-      </span> -->
+      </span>
     </div> 
 
     <div class="recipe-form__group">
@@ -100,20 +104,20 @@ import { required, url, integer } from "vuelidate/lib/validators";
 export default {
     name: "Form",
     components: { FormIngredients, FormSteps },
-     data: function() {
-        return{
-          recipe: {     
-            id: null,
-            titre: "",
-            description: "",
-            etapes: [],  
-            ingredients: [
-            ],                 
-            niveau: "", 
-            personnes: "",
-            tempsPreparation: "",
-            photo: ""
-        }
+    data: function() {
+      return{
+        recipe: {     
+          id: null,
+          titre: "",
+          description: "",
+          etapes: [''],  
+          ingredients: [''],                 
+          niveau: "", 
+          personnes: "",
+          tempsPreparation: "",
+          photo: ""
+        },
+        counter: 0
       }
     }, 
     validations: {
@@ -132,21 +136,22 @@ export default {
         onSubmit() {
         this.$v.recipe.$touch();
         if (this.$v.recipe.$pending || this.$v.recipe.$error) return;
-            alert("Form submitted");
             this.$emit('send', this.recipe)
             // this.$router.push({name:'List'});
         },
 
         getIngredients: function (data) {
-          this.recipe.ingredients.push(data);
+          this.recipe.ingredients.push(data)
+          if(this.recipe.ingredients[0] === "" ){
+            this.recipe.ingredients.shift();
+          } 
         },
-
         getSteps: function(data){
-          this.recipe.etapes.push(data);
-        }
-        // removeField(step){
-        //   this.steps.$remove(step);
-        // }
+           this.recipe.etapes.push(data)
+            if(this.recipe.etapes[0] === "" ){
+            this.recipe.etapes.shift();
+          } 
+        },
     }
 }
 </script>

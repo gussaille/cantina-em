@@ -1,7 +1,7 @@
 <template>
     <div class="ingredients-bloc">
         <div> 
-            <input placeholder="Quantité" v-model="ingredients[0]" @blur='sendIngredients'/>
+            <input placeholder="Quantité" v-model="ingredients[0]"/>
         </div>
         
         <div>
@@ -16,9 +16,9 @@
         </div>
 
         <div>
-            <input placeholder="Ingrédient" v-model="ingredients[1]">
-        </div> 
-        
+            <input placeholder="Ingrédient" v-model="ingredients[1]" @blur="sendIngredients">
+        </div>
+     
     </div>
 </template>
 
@@ -32,16 +32,15 @@ export default {
     },
     data: function(){
         return{
-            ingredients: [
-            ],
+            ingredients: [],
             mesure: ''              
         }
     },
     methods: {
         sendIngredients: function () {
             this.$emit('send', this.ingredients);
-        }
-    }
+        },
+    },
 }
 
 </script>

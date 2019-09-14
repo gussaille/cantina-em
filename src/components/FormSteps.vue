@@ -2,10 +2,10 @@
     <div class="textarea-block">
         <textarea
             type="text" 
-             v-model="etapes[0]"
+             v-model="etapes"
             @blur="sendSteps"
             placeholder="Saisissez l'étape de préparation"></textarea>        
-        <button>x</button>
+        <button @click.prevent="removeField">x</button>
     </div>
 </template>
 
@@ -19,13 +19,16 @@ export default {
     },
     data: function(){
         return{
-            etapes:''
+            etapes: ''
         }
     },
     methods:{
         sendSteps: function () {
             this.$emit('send', this.etapes);
-        }
+        },
+        // removeField(){
+        //     this.etapes.shift(1)
+        // }
     }
 }
 </script>

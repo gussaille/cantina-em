@@ -22,7 +22,7 @@
           </select>
         </div>
         <div> 
-          <input type="number" v-model.number="selectValue[2]"  value="guest" id="guest" name="personne">
+          <input type="number" v-model.number="personnesNumber"  value="guest" id="guest" name="personne">
           <label for="guest"> Nombre de personne </label>
         </div>
         <div>
@@ -58,6 +58,7 @@ export default {
         recipesList : null,
         searchValue: "",
         selectValue: [true],
+        personnesNumber: null,
         showModal : false
     }
   },
@@ -72,7 +73,7 @@ export default {
 
   filteredList: function() {
       let filteredList = this.recipesList;
-      let personnesNumber;
+      // let personnesNumber;
 
       let searchVal = this.searchValue;
      
@@ -91,52 +92,14 @@ export default {
         }
 
         //A MODIFIER FILTER PERSONNES + TEMPS DE PREPARATION 
-        if(this.selectValue[2] == personnesNumber ){
-          console.log(personnesNumber);
-          filteredList = filteredList.filter((recipe)=> recipe.personnes.toString().includes(''))
-        }
 
-        // console.dir(filteredList)
+        // if(this.personnesNumber >= this.recipesList.personnes ){
+        //   console.log(personnesNumber);
+        //   filteredList = filteredList.filter((recipe)=> recipe.personnes.toString())
+        // }
 
         return filteredList;
 
-      // for (let i = 0; i < filteredList.length; i ++){
-      //   titre = filteredList[i].titre;
-      //    console.log(titre)
-      //    if(titre === searchVal){
-      //       return `${titre}`.includes(searchVal)
-      //    }
-      // }
-
-      //  filteredList = filteredList.filter((recipe)=> recipe.titre.includes(searchVal))
-
-    // return this.recipesList.filter(({ titre, niveau, tempsPreparation, personnes }) => {
-        
-        // if(this.selectValue[0] === true){
-
-        //   if(this.selectValue[1] === "padawan") { 
-        //     `${niveau}`.includes("padawan") && `${titre}`.includes(searchVal)
-        //   }
-
-        //   else if(this.selectValue[1] === "jedi") {
-        //     return `${niveau}`.includes("jedi")
-        //   }
-
-        //   else if(this.selectValue[1] === "maitre") { 
-        //     return `${niveau}`.includes("maitre")
-        //   }
-        //   if(this.selectValue[2] === personnes){
-        //     console.log('Personnes detecté')
-        //     return `${titre}`.includes(personnes)
-        //   } 
-          
-        //   if(this.selectValue[3] === tempsPreparation){
-        //     console.log('tempsPreparation detecté')
-        //     return `${titre}`.includes(tempsPreparation)
-        //   } 
-
-        //   return `${titre}`.includes(searchVal)
-        // }
     }
   },
   
