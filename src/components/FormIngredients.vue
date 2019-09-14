@@ -25,20 +25,16 @@
 <script>
 export default {
     name: 'FormIngredients',
-    props: {
-        recipe: {
-            type: Object,
-        }
-    },
+    props:['ingredients'],
     data: function(){
         return{
-            ingredients: [],
+            ingredient: [],
             mesure: ''              
         }
     },
     methods: {
         sendIngredients: function () {
-            this.$emit('send', this.ingredients);
+            this.$emit('send', this.ingredient);
         },
     },
 }

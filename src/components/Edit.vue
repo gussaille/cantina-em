@@ -2,7 +2,7 @@
     <div class="container centered">
       <h1>Formulaire de modification de recette Geek</h1>
       <hr>
-      <Form v-if="recipe" :recipe="recipe" @send="update(recipe)"></Form>
+      <Form v-if="recipe" :id="recipe.id" :recipe="recipe" @send="update"></Form>
     </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
     },
     data: function() {
         return{
-            recipe:null
+            recipe: null
         }
     }, 
     created : function(){
@@ -27,20 +27,20 @@ export default {
         .then(recipe => { 
             this.recipe = recipe;
         })
-        .catch(({message}) => {
+        .catch(() => {
             this.$router.replace('/');
         });
     },
     methods: {
-        update(recipeToUpdate){
-            console.log(recipeToUpdate)
-            userService.updateRecipe(recipeToUpdate)
+        update(recipe){
+            console.log(recipe)
+            userService.updateRecipe(recipe)
             .then(()=> {
                 alert('Recette mise à jour')
                 // this.$router.replace('/list');
             })
-            .catch(({message}) => {
-                console.log(recipeToUpdate)
+            .catch(() => {
+                console.log(recipe)
                 alert("Erreur try again");
             })
         }

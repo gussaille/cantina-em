@@ -40,7 +40,7 @@
         <label for="ingredients">Liste des ingrédients :</label>
 
         <div v-for="(value, index) in recipe.ingredients" :key="index">
-          <FormIngredients @send="getIngredients"/>
+          <FormIngredients :ingredients="recipe.ingredients[index]" @send="getIngredients"/>
         </div>   
         <span v-if="$v.recipe.ingredients.$dirty && !$v.recipe.ingredients.required">Veuillez renseigner un ingrédient</span>
 
@@ -87,7 +87,6 @@
     <div class="recipe-form__group">
       <label for="photo">Photo :</label>
       <input type="url" v-model.lazy="$v.recipe.photo.$model" id="photo" placeholder="http://">
-      <span v-if="!$v.recipe.photo.url">L'URL est invalide</span>
     </div>
     <div class="actions">
       <button type="submit" class="btn">Envoyer</button>
@@ -104,20 +103,20 @@ import { required, url, integer } from "vuelidate/lib/validators";
 export default {
     name: "Form",
     components: { FormIngredients, FormSteps },
+    props : ['recipe'],
     data: function() {
       return{
-        recipe: {     
-          id: null,
-          titre: "",
-          description: "",
-          etapes: [''],  
-          ingredients: [''],                 
-          niveau: "", 
-          personnes: "",
-          tempsPreparation: "",
-          photo: ""
-        },
-        counter: 0
+        // recipe: {     
+        //   id: null,
+        //   titre: "",
+        //   description: "",
+        //   etapes: [''],  
+        //   ingredients: [''],                 
+        //   niveau: "", 
+        //   personnes: "",
+        //   tempsPreparation: "",
+        //   photo: ""
+        // },
       }
     }, 
     validations: {
@@ -137,7 +136,7 @@ export default {
          if(this.$v.recipe.$invalid) 
             return this.$v.recipe.$touch();
             this.$emit('send', this.recipe);
-            // this.$router.push({name:'List'});
+            this.$router.push({name:'List'});
         },
 
         getIngredients: function (data) {
@@ -146,7 +145,7 @@ export default {
             this.recipe.ingredients.shift();
           } 
         },
-
+        
         getSteps: function(data){
            this.recipe.etapes.push(data)
             if(this.recipe.etapes[0] === "" ){

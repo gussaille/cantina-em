@@ -2,7 +2,7 @@
     <div class="container centered">
       <h1>Page d'ajout de nouvelles recettes extraordinairement G33k</h1>
       <hr>
-      <Form @send="addRecipe"></Form>
+      <Form :recipe="recipe" :id="recipe.id" @send="addRecipe"></Form>
     </div>
 </template>
 
@@ -13,12 +13,25 @@ import userService from "../services/userService"
 
 export default {
     name: 'Add',
+    props:{
+        
+    },
     components : {
       Form
     },
     data: function() {
         return{
-
+            recipe: {     
+                id: null,
+                titre: "",
+                description: "",
+                etapes: [''],  
+                ingredients: [''],                 
+                niveau: "", 
+                personnes: "",
+                tempsPreparation: "",
+                photo: ""
+            }
         }
     }, 
     methods: {
