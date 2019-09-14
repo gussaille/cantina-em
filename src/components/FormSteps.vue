@@ -2,7 +2,7 @@
     <div class="textarea-block">
         <textarea
             type="text" 
-             v-model="etapes"
+             v-model="mutateEtapes"
             @blur="sendSteps"
             placeholder="Saisissez l'étape de préparation"></textarea>        
         <button @click.prevent="removeField">x</button>
@@ -12,19 +12,18 @@
 <script>
 export default {
     name: 'FormSteps',
-    props: {
-        recipe: {
-            type: Object,
-        }
-    },
+    props: ['etapes'],
     data: function(){
         return{
-            etapes: ''
+            mutateEtapes : this.etapes
         }
     },
+
+     // le problème, sur add pas besoin de récupérer la prop etapes car on renvoie la donnée dans le composant parent mais pour edit on a besoin de récupérer la prop pour la placer dans les champs input
+
     methods:{
         sendSteps: function () {
-            this.$emit('send', this.etapes);
+            this.$emit('send', this.mutateEtapes);
         },
         // removeField(){
         //     this.etapes.shift(1)
@@ -35,17 +34,17 @@ export default {
 
 <style scoped lang="scss">
  
- textarea{
-          width:89%;
+    textarea{
+        min-height:50px;
+        margin:5px 0;
 
-          .textarea-block{
+        .textarea-block{
             min-height:40px;
             display:flex;
             align-items: center;
-          }
-          margin:5px 0;
-          @media screen and(min-width:480px){
-              padding-top: 28px;
-          }
         }
+        @media screen and(min-width:480px){
+              padding-top: 28px;
+        }
+    }
 </style>

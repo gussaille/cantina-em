@@ -13,25 +13,22 @@ import userService from "../services/userService"
 
 export default {
     name: 'Add',
-    props:{
-        
-    },
     components : {
       Form
     },
     data: function() {
         return{
-            recipe: {     
-                id: null,
-                titre: "",
-                description: "",
-                etapes: [''],  
-                ingredients: [''],                 
-                niveau: "", 
-                personnes: "",
-                tempsPreparation: "",
-                photo: ""
-            }
+        recipe: {     
+            id: null,
+            titre: "",
+            description: "",
+            etapes: [''],  
+            ingredients: [''],                 
+            niveau: "", 
+            personnes: "",
+            tempsPreparation: "",
+            photo: ""
+            },
         }
     }, 
     methods: {
@@ -40,7 +37,7 @@ export default {
                 console.log(res)
                 this.$router.push({ path: '/list' })
             })
-            .catch(() => console.log("Erreur"));
+            .catch(() => alert("Erreur"));
         }
     }
 }

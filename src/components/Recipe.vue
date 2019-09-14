@@ -48,7 +48,7 @@
                 </div>
             </section>
             <div class="btn-custom">
-                <button class="btn-custom--edit" @click="edit">Modifier</button> 
+                <router-link :to="`/recipe/edit/${recipe.id}`" class="btn btn-custom--edit">Modifier</router-link>
                 <button class="btn-custom--remove" @click="remove">Supprimer</button> 
             </div>
         </div>

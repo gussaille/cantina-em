@@ -75,7 +75,7 @@
       <label for="step">Etapes de préparation</label>
       
       <div v-for="(value, index) in recipe.etapes" :key="index">
-        <FormSteps @send="getSteps"/>
+        <FormSteps :etapes="recipe.etapes[index]" @send="getSteps"/>
       </div>
 
       <button class="addField" @click.prevent="addTextArea">+</button>
@@ -136,7 +136,8 @@ export default {
          if(this.$v.recipe.$invalid) 
             return this.$v.recipe.$touch();
             this.$emit('send', this.recipe);
-            this.$router.push({name:'List'});
+            alert('Formulaire Transmis');
+            // this.$router.push({name:'List'});
         },
 
         getIngredients: function (data) {
@@ -174,7 +175,6 @@ export default {
         margin: 10px auto;
         
         label{
-            text-align:left;
             text-transform: uppercase;
         }
         
@@ -182,10 +182,12 @@ export default {
             width:90%;
             max-width:400px;
             padding:12px;
+            margin:0 auto;
             outline:none;
             border-radius:20px;
             border:none;
         }
+
         select{
             width:60%;
         }
@@ -199,9 +201,6 @@ export default {
           width:50px;
           margin:10px 0;
         }
-        &--ingredient{
-   
-        }
       }
     .actions{
         button{
@@ -214,6 +213,7 @@ export default {
             color:white;
             text-transform: uppercase;
             border: none;
+
             &:hover{
                 box-shadow: 0 0 10px rgba(120, 204, 228, 0.6);
             }
