@@ -11,7 +11,6 @@
         </p>
          <p class="informations__preparation__guest" v-else> Pour {{ recipe.personnes }} personne
         </p>
-
       </div>
     </div>
     <div class="btn-custom">
@@ -69,18 +68,25 @@ export default {
   .recipe-card{
     width:95%;
     max-width:320px;
-    border: 2px solid black;
+    border-radius: 25px 0;
+    border: 2px solid #FBE50B;
     min-height:250px;
     margin-top:20px;
     cursor: pointer;
     background: black;
     transition: 0.5s;
+    
+    &:hover{
+      background: rgba(0, 0, 0, 0.2);
+    }
 
     &:active{
       outline:none;
     }
 
     &__title{
+      font-family: starJedi;
+      letter-spacing: 3px;
       color:white;
     }
 
