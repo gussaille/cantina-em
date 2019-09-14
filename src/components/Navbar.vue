@@ -1,9 +1,14 @@
 <template>
     <nav class="nav">
         <div class="nav-container">
-            <router-link class="nav-container__link" to="/">Accueil</router-link>
-            <router-link class="nav-container__link" to="/list">Liste des recettes</router-link>
-            <router-link class="nav-container__link" to="/add">Ajouter une nouvelles recette</router-link>
+            <router-link class="nav-container__link--logo" to="/">
+                <img src="/img/logoCantina.png" alt="Logo Cantina">
+            </router-link>
+            <div>
+                <router-link class="nav-container__link" to="/">Accueil</router-link>
+                <router-link class="nav-container__link" to="/list">Liste des recettes</router-link>
+                <router-link class="nav-container__link" to="/add">Ajouter une nouvelles recette</router-link>
+            </div>
         </div>
     </nav>
 </template>
@@ -21,7 +26,6 @@ export default {
     animation: slideDown 0.8s ease-out;
     background-color: black;
     overflow: hidden;
-    // margin-bottom: 3em;
 }
 
 .nav-container {
@@ -29,19 +33,26 @@ export default {
     width: 100%;
     flex-flow: row wrap;
     justify-content: center;
+    justify-content: space-between;
     align-items: center;
     @media screen and(max-width: 480px){
         flex-flow: column wrap;
         margin: 0 auto;
     }
 
+    img{
+        width:50px;
+        margin-left:10px;
+    }
+
     &__link, &__link:visited{
+        font-weight: 400;
         color: white;
         text-decoration: none;
         display: inline-block;
         transition: all 150ms;
         transform: scale(1);
-        padding: 0.75em;
+        padding: 20px;
         @media screen and(max-width:480px){
             padding: 0.75em 0;
         }
@@ -51,8 +62,8 @@ export default {
             transform: scale(1.05);
             color: rgba(81, 203, 238, 0.8);
         }
+
         &:last-of-type{
-            margin-left: auto;
             @media screen and(max-width:480px){
                 margin: unset;
             }
@@ -67,7 +78,7 @@ export default {
                 width: 100%;
             }
             color: rgba(81, 203, 238, 0.8);
-            background-color: rgb(41, 40, 40);
+            background-color: #2C2C2C;
             text-shadow:0 0 10px rgba(81, 203, 238, 1);
         }
     }

@@ -22,12 +22,13 @@ export default {
 </script>
 
 <style lang="scss">
+
 @font-face {
   font-family: "starJedi";
-  src: url("/public/fonts/StarJedi.woff"),
-  url("/public/fonts/StarJedi.ttf"),
-  url("/public/fonts/StarJedi.eot"),
-  url("/public/fonts/StarJedi.woff2")
+  src: url("/fonts/StarJedi.woff"),
+  url("/fonts/StarJedi.ttf"),
+  url("/fonts/StarJedi.eot"),
+  url("/fonts/StarJedi.woff2")
 }
 html, body, div, span, applet, object, iframe, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -59,7 +60,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 .wrapper{
   color:white;
@@ -81,4 +81,15 @@ body {
     }
   }
 }
+
+@keyframes fadeIn {
+  from{
+    opacity:0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+
 </style>
