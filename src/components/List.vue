@@ -1,5 +1,5 @@
 <template>
-  <div class="list">    
+  <div class="list" id="list">    
     <form class="form-filter" @submit.prevent>
       <div class="form-filter__search">
         <label for="searchVal">Rechercher :</label>
@@ -31,6 +31,7 @@
         </div>
       </div>
     </form>
+    <!-- <p class="error">Désolé, aucun résultat n'est apparu.</p> -->
 
     <div v-if="recipesList" class="recipe-list">    
         <RecipeCard @remove="removeRecipe" 
@@ -38,8 +39,6 @@
                     :key="recipe.id" 
                     :recipe="recipe"/>
     </div>
-
-    <RemoveModal v-if="showModal" @close="showModal = false" @confirm='removeRecipe'/>
 
   </div>
 </template>
@@ -58,7 +57,7 @@ export default {
         searchValue: "",
         selectValue: [true],
         personnesNumber: null,
-        showModal : false,
+        hasError: true
     }
   },
   created(){
@@ -72,34 +71,42 @@ export default {
 
   filteredList: function() {
       let filteredList = this.recipesList;
-      // let personnesNumber;
 
       let searchVal = this.searchValue;
      
         if(this.selectValue[0] ===  true){
-          filteredList = filteredList.filter((recipe)=> recipe.titre.toLowerCase().includes(searchVal))
+          filteredList = filteredList.filter((recipe)=> recipe.titre.toLowerCase().includes(searchVal))        
         }
 
+        //If the select value = "padawan" show all the results matches
         if(this.selectValue[1] ===  "padawan"){
           filteredList = filteredList.filter((recipe)=> recipe.niveau.toLowerCase().includes('padawan'))
         }
+        //If the select value = "jedi" show all the results matches
         if(this.selectValue[1] ===  "jedi"){
           filteredList = filteredList.filter((recipe)=> recipe.niveau.toLowerCase().includes('jedi'))
         }
         if(this.selectValue[1] ===  "maitre"){
           filteredList = filteredList.filter((recipe)=> recipe.niveau.toLowerCase().includes('maitre'))
         }
+
+        if(filteredList.length === 0){
+          // let listError = document.getElementById('list');
+          // let textError = document.createTextNode("Désolé, aucun résultat n'est apparu..");
+          // listError.appendChild(textError);
+        }
+
         // for (let i = 0; i <= filteredList.length; i++){
         //   console.log(filteredList[i].personnes)
         //   if(this.personnesNumber == filteredList[i].personnes){
         //     // console.log(filteredList[i])
         //     console.log('Recette')          
         //   }
-        //   if(this.selectValue[2] == filteredList[i].tempsPreparation){
+        // }
+        //if(this.selectValue[2] == filteredList[i].tempsPreparation){
         //     // console.log(filteredList[i])
         //     console.log('Recette')          
         //   }
-        // }
         return filteredList;
     }
   },
