@@ -4,7 +4,7 @@
             <router-link class="nav-container__link--logo" to="/">
                 <img src="/img/logoCantina.png" alt="Logo Cantina">
             </router-link>
-            <div>
+            <div class="nav-container__block">
                 <router-link class="nav-container__link" to="/">Accueil</router-link>
                 <router-link class="nav-container__link" to="/list">Liste des recettes</router-link>
                 <router-link class="nav-container__link" to="/add">Ajouter une nouvelles recette</router-link>
@@ -43,6 +43,12 @@ export default {
     img{
         width:50px;
         margin-left:10px;
+    }
+    &__block{
+        @media screen and(max-width:480px){
+            display:flex;
+            flex-direction: column;
+        }
     }
 
     &__link, &__link:visited{

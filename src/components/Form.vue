@@ -86,7 +86,7 @@
 
     <div class="recipe-form__group">
       <label for="photo">Photo :</label>
-      <input type="url" v-model.lazy="$v.recipe.photo.$model" id="photo" placeholder="http://">
+      <input type="url" v-model.lazy="$v.recipe.photo.$model" id="photo" placeholder="http://" @focusout="hasExtension">
     </div>
     <div class="actions">
       <button type="submit" class="btn">Envoyer</button>
@@ -132,28 +132,34 @@ export default {
         }
     },
     methods: {
-        onSubmit() {
-         if(this.$v.recipe.$invalid) 
-            return this.$v.recipe.$touch();
-            this.$emit('send', this.recipe);
-            alert('Formulaire Transmis');
-            // this.$router.push({name:'List'});
-        },
+      onSubmit() {
+        if(this.$v.recipe.$invalid) 
+          return this.$v.recipe.$touch();
+          this.$emit('send', this.recipe);
+          alert('Formulaire Transmis');
+          // this.$router.push({name:'List'});
+      },
 
-        getIngredients: function (data) {
-          this.recipe.ingredients.push(data)
-          if(this.recipe.ingredients[0] === "" ){
-            this.recipe.ingredients.shift();
-          } 
-        },
-        
-        getSteps: function(data){
-           this.recipe.etapes.push(data)
-            if(this.recipe.etapes[0] === "" ){
-            this.recipe.etapes.shift();
-          } 
-        },
-    }
+      getIngredients: function (data) {
+        this.recipe.ingredients.push(data)
+        if(this.recipe.ingredients[0] === "" ){
+          this.recipe.ingredients.shift();
+        } 
+      },
+      
+      getSteps: function(data){
+        this.recipe.etapes.push(data)
+          if(this.recipe.etapes[0] === "" ){
+          this.recipe.etapes.shift();
+        } 
+      },
+
+      // hasExtension(photo, exts) {
+      //   var fileName = document.getElementById("photo").value;
+      //   console.log(fileName);
+      //   return (new RegExp('(' + exts.join('|').replace(/\./g, '\\.') + ')$')).test(fileName);
+      // },
+  }
 }
 </script>
 

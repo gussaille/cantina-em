@@ -1,5 +1,5 @@
 <template>
-  <article class="recipe-card" >
+  <article class="recipe-card">
     <h1 class="recipe-card__title">{{recipe.titre}}</h1>
     <div class="informations" @click="goRecipe">
       <img :src="recipe.photo || DEFAULT_PICTURE" class="informations__illustration" :alt="recipe.titre">
@@ -51,6 +51,7 @@ export default {
     edit(){
 
     },
+
     //REDIRECT TO THE RECIPE PAGE
     goRecipe(){
       this.$router.push({path:"/recipe/" + this.recipe.id});
@@ -77,7 +78,11 @@ export default {
     transition: 0.5s;
     
     &:hover{
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(254, 254, 254, 0.5);
+      color:black;
+      .recipe-card__title{
+        text-shadow: 2px 4px 5px #000000;
+      }
     }
 
     &:active{
@@ -87,11 +92,9 @@ export default {
     &__title{
       font-family: starJedi;
       letter-spacing: 3px;
-      color:white;
     }
 
     .informations {
-      color: white;
 
       @media screen and(max-width:480px){
         display:flex;
@@ -113,49 +116,7 @@ export default {
       &__preparation{
         &__level{
           text-transform:capitalize;
-          color:white;
         }
-      }
-    }
-    .btn-custom{
-      display: flex;
-      justify-content: space-around;
-
-      @media screen and(min-width:480px){
-          width: 60%;
-          margin: 0 auto;
-          max-width: 500px;
-      }
-      
-      .btn {
-        cursor: pointer;
-        position:relative;
-        z-index:999;
-        width:130px;
-        padding:10px 0;
-        font-size:16px;
-        outline: 0;
-        border: 0;
-        margin: 20px auto;
-        text-decoration: none;
-
-        @media screen and(min-width:480px){
-          width: 90px;
-        }
-      
-        @media screen and(max-width:320px){
-          margin:5px auto;
-          width:100px;
-        }
-      }
-      &--remove{
-        color: red;
-        border:1px solid red;
-        background-color:white;
-      }
-      &--edit{
-        color:white;
-        background-color: lightgrey;
       }
     }
   }

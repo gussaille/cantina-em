@@ -118,7 +118,7 @@ export default {
           .catch(()=> {
             alert('Erreur')
         })
-      }
+    }
   }
 }
 </script>

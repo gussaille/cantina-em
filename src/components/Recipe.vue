@@ -25,7 +25,7 @@
             <section>
                 <div class="recipe__ingredients">
                      <div class="recipe__header">
-                        <h3 class="recipe__subtitle">Ingrédients</h3>
+                        <h3 class="recipe__subtitle">ingrédients</h3>
                     </div>
                     <ul>
                     <li class="recipe__text" v-for="(ingredient, index) in recipe.ingredients" :key="index">
@@ -49,7 +49,7 @@
             </section>
             <div class="btn-custom">
                 <router-link :to="`/recipe/edit/${recipe.id}`" class="btn btn-custom--edit">Modifier</router-link>
-                <button class="btn-custom--remove" @click="remove">Supprimer</button> 
+                <button class="btn btn-custom--remove" @click="remove">Supprimer</button> 
             </div>
         </div>
      </article>
@@ -75,10 +75,9 @@ export default {
             this.recipe = recipe;
             console.log(recipe);
         })
-        // .catch(({message}) => {
-        //     this.message.error(message);
-        //     this.$router.replace('/');
-        // });
+        .catch(() => {
+            this.$router.replace('/');
+        });
     },
     computed: {
         DEFAULT_PICTURE: function() {
@@ -103,7 +102,15 @@ export default {
 
         },
         remove(){
-                
+            userService.removeRecipe(this.recipe)
+            .then(()=> {
+                this.recipe.$remove;
+                 alert("La recette a été supprimée") 
+                 this.$router.push({name:'List'});
+            })
+            .catch(()=> {
+                alert('Erreur')
+            })      
         }
     },
 }
@@ -153,8 +160,9 @@ export default {
             }
             .recipe__banner {
                 display: block;
-                border-radius: 60px;
-                width:80%;
+                border-radius: 25px 0;
+                border: 2px solid #FBE50B;               
+                width:70%;
                 margin:20px auto;
 
                 @media screen and(min-width:480px){
@@ -187,7 +195,8 @@ export default {
                 }
             }  
         }
-        section:last-of-type{                      width: 90%;
+        section:last-of-type{                      
+            width: 90%;
             margin: 0 auto;
             text-align: left;
 
@@ -217,27 +226,6 @@ export default {
                         list-style-type: decimal;
                     }
                 }
-            }
-        }
-        .btn-custom{
-            display: flex;
-            justify-content: space-around;
-            @media screen and(min-width:480px){
-                width: 60%;
-                margin: 0 auto;
-                max-width: 500px;
-            }
-            
-            button {
-                cursor: pointer;
-                width:150px;
-                padding:10px;
-                outline: 0;
-                border: 0;
-                margin: 20px auto;
-            }
-            &--remove{
-                background-color:red;
             }
         }
     }

@@ -1,7 +1,6 @@
 <template>
     <div class="home">    
-        <div class="container">
-           
+        <div class="container">    
            <div class="banner">
                 <img class="banner__illustration" src="/img/background-cantina.jpg" alt="Bannière Cantina">
                 <div class="description">
@@ -9,12 +8,8 @@
                     <p class="description__text">Les Geeks ont du Goût</p>
                 </div>
             </div>
-
         </div>
-     
-
-
-  </div>
+    </div>
 </template>
 
 <script>
@@ -61,6 +56,9 @@ export default {
             position:relative;
             &__illustration{
                 width:100%;
+                @media screen and(min-width:800px){
+                    min-height:400px;
+                }
             }
             .description{
                 width:80%;
