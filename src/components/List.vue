@@ -26,7 +26,7 @@
           <label for="guest"> Nombre de personne </label>
         </div>
         <div>
-          <input type="number" v-model.number="selectValue[3]" value="time" id="time" name="time">
+          <input type="number" v-model.number="selectValue[2]" value="time" id="time" name="time">
           <label for="time"> Temps de préparation (en mn)</label>
         </div>
       </div>
@@ -59,7 +59,7 @@ export default {
         searchValue: "",
         selectValue: [true],
         personnesNumber: null,
-        showModal : false
+        showModal : false,
     }
   },
   created(){
@@ -90,16 +90,18 @@ export default {
         if(this.selectValue[1] ===  "maitre"){
           filteredList = filteredList.filter((recipe)=> recipe.niveau.toLowerCase().includes('maitre'))
         }
-
-        //A MODIFIER FILTER PERSONNES + TEMPS DE PREPARATION 
-
-        // if(this.personnesNumber >= this.recipesList.personnes ){
-        //   console.log(personnesNumber);
-        //   filteredList = filteredList.filter((recipe)=> recipe.personnes.toString())
+        // for (let i = 0; i <= filteredList.length; i++){
+        //   console.log(filteredList[i].personnes)
+        //   if(this.personnesNumber == filteredList[i].personnes){
+        //     // console.log(filteredList[i])
+        //     console.log('Recette')          
+        //   }
+        //   if(this.selectValue[2] == filteredList[i].tempsPreparation){
+        //     // console.log(filteredList[i])
+        //     console.log('Recette')          
+        //   }
         // }
-
         return filteredList;
-
     }
   },
   

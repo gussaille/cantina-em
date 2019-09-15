@@ -76,36 +76,40 @@ body {
     font-family: starJedi;
     letter-spacing:3px;
   }
-    .btn-custom{
-      display: flex;
-      justify-content: space-around;
+  .btn-custom{
+    display: flex;
+    justify-content: space-around;
+    
+    @media screen and(min-width:480px){
+      width: 80%;
+      margin: 0 auto;
+      max-width: 500px;
+    }
+    
+    .btn {
+      cursor: pointer;
+      width:150px;
+      padding:10px 0;
+      font-size:18px;
+      text-decoration: none;
+      outline: 0;
+      border: 0;
+      margin: 20px 5px; 
       
-      @media screen and(min-width:480px){
-        width: 80%;
-        margin: 0 auto;
-        max-width: 500px;
+      &:hover{
+        opacity:0.7;
       }
-      
-      .btn {
-        cursor: pointer;
-        width:150px;
-        padding:10px 0;
-        font-size:18px;
-        text-decoration: none;
-        outline: 0;
-        border: 0;
-        margin: 20px 5px; 
-      }
+    }
 
-      &--remove{
-        color: red;
-        border:1px solid red;
-        background-color:white;
-      }
-      &--edit{
-        color:black;
-        background-color: lightgrey;
-      }
+    &--remove{
+      color: red;
+      border:1px solid red;
+      background-color:white;
+    }
+    &--edit{
+      color:black;
+      background-color: lightgrey;
+    }
   }
 }
 #nav {
