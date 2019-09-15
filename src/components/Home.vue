@@ -2,7 +2,7 @@
     <div class="home">    
         <div class="container">    
            <div class="banner">
-                <img class="banner__illustration" src="/img/background-cantina.jpg" alt="Bannière Cantina">
+                <!-- <img class="banner__illustration" src="/img/background-cantina.jpg" alt="Bannière Cantina"> -->
                 <div class="description">
                     <h1 class="description__title"> La Cantina </h1>
                     <p class="description__text">Les Geeks ont du Goût</p>
@@ -54,8 +54,19 @@ export default {
         .banner{
             min-height:400px;
             position:relative;
+            background-image: url('/img/cantina-mobile.jpg');
+            background-size:cover;
+            background-repeat:no-repeat;
+            background-position: bottom;
+            
+            @media screen and(min-width:800px){
+                background-image: url('/img/background-cantina.jpg');
+                background-size:cover;
+                background-repeat:no-repeat;
+            }
             &__illustration{
                 width:100%;
+                
                 @media screen and(min-width:800px){
                     min-height:400px;
                 }
@@ -85,10 +96,7 @@ export default {
                     text-shadow: 2px 4px 5px #000000;
                 }
             }
-            // background-size:cover;
-            // background-position:top;
-            // background-repeat:no-repeat;
-            // background: url('/img/background-cantina.jpg');
+         
         }
     }
 }

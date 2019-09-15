@@ -14,8 +14,8 @@
       </div>
     </div>
     <div class="btn-custom">
-        <router-link :to="`/recipe/edit/${recipe.id}`" class="btn btn-custom--edit">Modifier</router-link>
-        <button class="btn btn-custom--remove" @click="onRemove">Supprimer</button> 
+        <router-link :to="`/recipe/edit/${recipe.id}`" title="Modifier la recette" class="btn btn-custom--edit"><i class="material-icons" >edit</i></router-link>
+        <button class="btn btn-custom--remove"  title="Supprimer la recette" @click="onRemove"><i class="material-icons">delete</i></button> 
     </div>
   </article>
 </template>

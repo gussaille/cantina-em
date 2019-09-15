@@ -47,12 +47,11 @@
 <script>
 
 import RecipeCard from  './RecipeCard'
-import RemoveModal from  './RemoveModal'
 import userService from "../services/userService"
 
 export default {
   name: 'List',
-  components: {RecipeCard, RemoveModal},
+  components: {RecipeCard},
     data : function(){
     return{
         recipesList : null,
@@ -107,15 +106,18 @@ export default {
   
   methods :{
     removeRecipe(recipeToDelete){
+      if(confirm("Êtes-vous sûr de vouloir supprimer cette recette?"))
         userService.removeRecipe(recipeToDelete)
           .then(()=> {
             let indexList = this.recipesList.indexOf(recipeToDelete)
             if(indexList > -1){
               this.recipesList.splice(indexList, 1);
             }
-            alert("La recette a été supprimée") 
-            //renvoi -> modal d'accord 
-            // --> suppression
+            let toast = this.$toasted.show("La recette a été supprimée !", { 
+              theme: "bubble", 
+              position: "top-center", 
+              duration : 2000
+            });          
           })
           .catch(()=> {
             alert('Erreur')

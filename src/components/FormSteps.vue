@@ -2,9 +2,9 @@
     <div class="textarea-block">
         <textarea
             type="text" 
-             v-model="mutateEtapes"
-            @blur="sendSteps"
-            placeholder="Saisissez l'étape de préparation"></textarea>        
+             v-model="etapes[index]"
+            placeholder="Saisissez l'étape de préparation"></textarea>  
+            <button @click.prevent="sendSteps"><i class="material-icons">check</i></button>      
         <button @click.prevent="removeField">x</button>
     </div>
 </template>
@@ -12,18 +12,16 @@
 <script>
 export default {
     name: 'FormSteps',
-    props: ['etapes'],
+    props: ['etapes', 'index'],
     data: function(){
         return{
-            mutateEtapes : this.etapes
+            // mutateEtapes : this.etapes
         }
     },
 
-     // le problème, sur add pas besoin de récupérer la prop etapes car on renvoie la donnée dans le composant parent mais pour edit on a besoin de récupérer la prop pour la placer dans les champs input
-
     methods:{
         sendSteps: function () {
-            this.$emit('send', this.mutateEtapes);
+            this.$emit('send', this.etapes);
         },
         // removeField(){
         //     this.etapes.shift(1)

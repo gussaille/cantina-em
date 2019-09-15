@@ -18,23 +18,27 @@ export default {
     },
     data: function() {
         return{
-        recipe: {     
-            id: null,
-            titre: "",
-            description: "",
-            etapes: [''],  
-            ingredients: [''],                 
-            niveau: "", 
-            personnes: "",
-            tempsPreparation: "",
-            photo: ""
+            recipe: {     
+                id: null,
+                titre: "",
+                description: "",
+                etapes: [''],  
+                ingredients: [''],                 
+                niveau: "", 
+                personnes: "",
+                tempsPreparation: "",
+                photo: ""
             },
         }
     }, 
     methods: {
         addRecipe(recipeToAdd){        
             userService.addRecipe(recipeToAdd).then((res) =>{
-                console.log(res)
+                let toast = this.$toasted.show("La recette a été ajoutée avec succès!", { 
+                    theme: "bubble", 
+                    position: "top-center", 
+                    duration : 3000
+                });                         
                 this.$router.push({ path: '/list' })
             })
             .catch(() => alert("Erreur"));

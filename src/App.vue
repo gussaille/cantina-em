@@ -76,6 +76,10 @@ body {
     font-family: starJedi;
     letter-spacing:3px;
   }
+  h1{
+    font-size: 24px;
+  }
+
   .btn-custom{
     display: flex;
     justify-content: space-around;
@@ -93,11 +97,13 @@ body {
       font-size:18px;
       text-decoration: none;
       outline: 0;
-      border: 0;
+      border: 1px solid black;;
       margin: 20px 5px; 
+      opacity:0.7;
+
       
       &:hover{
-        opacity:0.7;
+        opacity:1;
       }
     }
 
@@ -108,7 +114,7 @@ body {
     }
     &--edit{
       color:black;
-      background-color: lightgrey;
+      background-color: white;
     }
   }
 }

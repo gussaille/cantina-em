@@ -48,8 +48,8 @@
                 </div>
             </section>
             <div class="btn-custom">
-                <router-link :to="`/recipe/edit/${recipe.id}`" class="btn btn-custom--edit">Modifier</router-link>
-                <button class="btn btn-custom--remove" @click="remove">Supprimer</button> 
+                <router-link :to="`/recipe/edit/${recipe.id}`" title="Modifier la recette" class="btn btn-custom--edit"><i class="material-icons">edit</i></router-link>
+                <button class="btn btn-custom--remove" title="Supprimer la recette" @click="remove"><i class="material-icons">delete</i></button> 
             </div>
         </div>
      </article>
@@ -102,11 +102,16 @@ export default {
 
         },
         remove(){
+            if(confirm("Êtes-vous sûr de vouloir supprimer cette recette?"))
             userService.removeRecipe(this.recipe)
             .then(()=> {
                 this.recipe.$remove;
-                 alert("La recette a été supprimée") 
-                 this.$router.push({name:'List'});
+                 let toast = this.$toasted.show("La recette a été supprimée !", { 
+                    theme: "bubble", 
+                    position: "top-center", 
+                    duration : 3000
+                });    
+                this.$router.push({name:'List'});
             })
             .catch(()=> {
                 alert('Erreur')

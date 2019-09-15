@@ -95,7 +95,7 @@ export default {
 
         }
         &.router-link-exact-active {
-            @media screen and(max-width:480px){
+            @media screen and(max-width:600px){
                 width: 100%;
             }
             color: rgba(81, 203, 238, 0.8);

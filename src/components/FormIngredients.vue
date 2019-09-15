@@ -1,12 +1,12 @@
 <template>
     <div class="ingredients-bloc">
         <div> 
-            <input placeholder="Quantité" v-model="ingredients[0]"/>
+            <input type="number" placeholder="Quantité" v-model="ingredients[0]"/>
         </div>
         
         <div>
         <select v-model="mesure">
-                <option value ="" select="selected" disabled>Mesure</option>
+                <option value ="" select="selected" disabled>Unité</option>
                 <option value="l">l</option>
                 <option value="cl">cl</option>
                 <option value="kg">kg</option>
@@ -16,19 +16,25 @@
         </div>
 
         <div>
-            <input placeholder="Ingrédient" v-model="ingredients[1]"         @blur="sendIngredients"/>
+            <input placeholder="Ingrédient" v-model="ingredients[1]"/>
         </div>
-     
+        <button  @click="toggle()" title="Cliquer pour valider votre ingrédient">
+            <i @click.prevent="sendIngredients" v-if="isValid" class="material-icons">check</i>
+            <i @click.prevent="removeIngredients" v-else class="material-icons">delete</i>
+        </button>      
+        <!-- <button @click.prevent="removeIngredient" title="Cliquer pour supprimer votre ingrédient"><i class="material-icons">delete</i></button>       -->
     </div>
 </template>
 
 <script>
 export default {
     name: 'FormIngredients',
+    props:[ 'recipe'],
     data: function(){
         return{
+            ingredients:[''],
             mesure:'',
-            ingredients:[]
+            isValid: true 
         }
     },
 
@@ -37,8 +43,12 @@ export default {
 
     methods: {
         sendIngredients: function () {
+            this.$toasted.show("L'ingrédient a été enregistrée"); 
             this.$emit('send', this.ingredients);
         },
+        toggle: function(){
+            this.isValid = !this.isValid
+        }
     },
 }
 

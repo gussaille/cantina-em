@@ -1,7 +1,7 @@
 <template>
   <form class="recipe-form" @submit.prevent="onSubmit">
     <div class="recipe-form__group">
-      <label for="title">Titre :</label>
+      <label for="title">Titre*</label>
       <input
         type="text"
         v-model="$v.recipe.titre.$model"
@@ -9,58 +9,62 @@
         id="title"
         placeholder="Saisissez le titre de la recette"
       >
-      <span v-if="$v.recipe.titre.$dirty && !$v.recipe.titre.required">Veuillez renseigner un titre à cette recette</span>
+      <span v-if="$v.recipe.titre.$dirty && !$v.recipe.titre.required">
+        Veuillez renseigner un titre à cette recette</span>
     </div>
 
     <div class="recipe-form__group">
-      <label for="description">Description :</label>
+      <label for="description">Description*</label>
       <textarea
         type="text"
         v-model="$v.recipe.description.$model"
         @blur="$v.recipe.description.$touch()"
         id="description"
-        placeholder="Saisissez une description de la recette"
+        placeholder="Saisissez une description"
       ></textarea>
-      <span v-if="$v.recipe.description.$dirty && !$v.recipe.description.required">Veuillez renseigner une description pour cette recette</span>
+      <span v-if="$v.recipe.description.$dirty && !$v.recipe.description.required">
+        Veuillez renseigner une description pour cette recette</span>
     </div>
 
     <div class="recipe-form__group">
-        <label for="level">Difficulté :</label>
+        <label for="level">Difficulté*</label>
         <select id="level" v-model="$v.recipe.niveau.$model">
             <option value="">Choisir un niveau de difficulté</option>
             <option value="padawan">Padawan</option>
             <option value="jedi">Jedi</option>
             <option value="maitre">Maître</option> 
         </select>
-        <span v-if="$v.recipe.niveau.$dirty && !$v.recipe.niveau.required">Veuillez choisir un niveau de difficulté</span>
+        <span v-if="$v.recipe.niveau.$dirty && !$v.recipe.niveau.required">
+          Veuillez choisir un niveau de difficulté</span>
     </div>
 
 
     <div class="recipe-form__group recipe-form__group--ingredient">
-        <label for="ingredients">Liste des ingrédients :</label>
+        <label for="ingredients">Liste des ingrédients*</label>
 
         <div v-for="(value, index) in recipe.ingredients" :key="index">
-          <FormIngredients :ingredients="recipe.ingredients[index]" @send="getIngredients"/>
+          <FormIngredients :index="index" :ingredients="recipe.ingredients" @send="getIngredients"/>
         </div>   
-        <span v-if="$v.recipe.ingredients.$dirty && !$v.recipe.ingredients.required">Veuillez renseigner un ingrédient</span>
+        <span v-if="$v.recipe.ingredients.$dirty && !$v.recipe.ingredients.required">
+          Veuillez renseigner un ingrédient</span>
 
-        <button v-if="this.recipe.ingredients != ''" class="addField" @click.prevent="addIngredients">+</button>
-     
+      <button class="addField" @click.prevent="addField"><i class="material-icons">add</i></button>
     </div>
 
     <div class="recipe-form__group">
-      <label for="time">Temps de préparation :</label>
+      <label for="time">Temps de préparation*</label>
       <input
         type="number"
         v-model.number="$v.recipe.tempsPreparation.$model"
         @blur="$v.recipe.tempsPreparation.$touch()"
         id="time"
         placeholder="Saisissez le temps de préparation en minutes">
-      <span v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.required">Veuillez indiquer un temps de préparation en minute</span>
+      <span v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.required">
+        Veuillez indiquer un temps de préparation (en minute)</span>
     </div>
 
     <div class="recipe-form__group">
-      <label for="guest">Nombre de personne :</label>
+      <label for="guest">Nombre de personne*</label>
       <input
         type="number"
         v-model.number="$v.recipe.personnes.$model"
@@ -72,25 +76,27 @@
     
 
     <div class="recipe-form__group">
-      <label for="step">Etapes de préparation</label>
+      <label for="step">Etapes de préparation*</label>
       
       <div v-for="(value, index) in recipe.etapes" :key="index">
-        <FormSteps :etapes="recipe.etapes[index]" @send="getSteps"/>
+        <FormSteps :index="index" :etapes="recipe.etapes" @send="getSteps"/>
       </div>
 
-      <button class="addField" @click.prevent="addTextArea">+</button>
+      <button class="addField" @click.prevent="addTextArea(etapes)"><i class="material-icons">add</i></button>
       <span v-if="$v.recipe.etapes.$dirty && !$v.recipe.etapes.required">
           Veuillez saisir les différentes étapes de la recette
       </span>
     </div> 
 
     <div class="recipe-form__group">
-      <label for="photo">Photo :</label>
-      <input type="url" v-model.lazy="$v.recipe.photo.$model" id="photo" placeholder="http://" @focusout="hasExtension">
+      <label for="photo">Photo</label>
+      <input type="url" v-model.lazy="$v.recipe.photo.$model" id="photo" placeholder="http://">
     </div>
     <div class="actions">
       <button type="submit" class="btn">Envoyer</button>
     </div>
+    <small>* Champs Obligatoires</small>
+
   </form>
 </template>
 
@@ -111,7 +117,7 @@ export default {
         //   titre: "",
         //   description: "",
         //   etapes: [''],  
-        //   ingredients: [''],                 
+          // ingredients: [''],                 
         //   niveau: "", 
         //   personnes: "",
         //   tempsPreparation: "",
@@ -136,23 +142,28 @@ export default {
         if(this.$v.recipe.$invalid) 
           return this.$v.recipe.$touch();
           this.$emit('send', this.recipe);
-          alert('Formulaire Transmis');
-          // this.$router.push({name:'List'});
       },
 
-      getIngredients: function (data) {
-        this.recipe.ingredients.push(data)
-        if(this.recipe.ingredients[0] === "" ){
-          this.recipe.ingredients.shift();
-        } 
+      getIngredients: function(ingredient) {
+        console.log(ingredient);
+        for(let i = 1; i <= this.recipe.ingredients; i++){
+          this.recipe.ingredients[i] = ingredient;
+        }
       },
       
       getSteps: function(data){
-        this.recipe.etapes.push(data)
-          if(this.recipe.etapes[0] === "" ){
-          this.recipe.etapes.shift();
-        } 
+        for(let i = 1; i <= this.recipe.ingredients; i++){
+          this.recipe.ingredients[i] = data; 
+        }
       },
+
+      addTextArea: function(newField){
+        this.recipe.etapes.push(newField)
+      },
+      
+      addField: function(newField){
+        this.recipe.ingredients.push(newField)
+      }
 
       // hasExtension(photo, exts) {
       //   var fileName = document.getElementById("photo").value;
@@ -169,6 +180,7 @@ export default {
     color:white;
     width: 90%;
     max-width:540px;
+    padding:10px;
     margin:0 auto;
     display:flex;
     flex-direction: column;
@@ -189,9 +201,13 @@ export default {
             max-width:400px;
             padding:12px;
             margin:0 auto;
+            font-family: Arial;
             outline:none;
             border-radius:20px;
             border:none;
+            &::placeholder{
+              color:black;
+            }
         }
 
         select{
