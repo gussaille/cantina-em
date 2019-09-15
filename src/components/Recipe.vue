@@ -106,7 +106,7 @@ export default {
             userService.removeRecipe(this.recipe)
             .then(()=> {
                 this.recipe.$remove;
-                 let toast = this.$toasted.show("La recette a été supprimée !", { 
+                this.$toasted.show("La recette a été supprimée !", { 
                     theme: "bubble", 
                     position: "top-center", 
                     duration : 3000

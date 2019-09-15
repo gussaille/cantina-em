@@ -33,8 +33,8 @@ export default {
     }, 
     methods: {
         addRecipe(recipeToAdd){        
-            userService.addRecipe(recipeToAdd).then((res) =>{
-                let toast = this.$toasted.show("La recette a été ajoutée avec succès!", { 
+            userService.addRecipe(recipeToAdd).then(() =>{
+                this.$toasted.show("La recette a été ajoutée avec succès!", { 
                     theme: "bubble", 
                     position: "top-center", 
                     duration : 3000
@@ -48,6 +48,11 @@ export default {
 </script>
 
 <style>
+.container{
+    width: 90%;
+    max-width:780px;
+    margin: 0 auto;
+}
 h1{
     color:white;
     font-size:20px;

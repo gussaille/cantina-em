@@ -113,7 +113,7 @@ export default {
             if(indexList > -1){
               this.recipesList.splice(indexList, 1);
             }
-            let toast = this.$toasted.show("La recette a été supprimée !", { 
+            this.$toasted.show("La recette a été supprimée !", { 
               theme: "bubble", 
               position: "top-center", 
               duration : 2000

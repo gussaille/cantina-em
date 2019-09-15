@@ -37,7 +37,7 @@ export default {
             console.log(recipe)
             userService.updateRecipe(recipe)
             .then(()=> {
-                let toast = this.$toasted.show("La recette a été modifiée !", { 
+                this.$toasted.show("La recette a été modifiée !", { 
                     theme: "bubble", 
                     position: "top-center", 
                     duration : 3000

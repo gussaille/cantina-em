@@ -41,8 +41,10 @@ export default {
     }
 
     img{
-        width:50px;
-        margin-left:10px;
+        width:70px;
+        @media screen and(min-width:480px){
+            margin-left:40px;
+        }
     }
     &__block{
         @media screen and(max-width:600px){

@@ -59,7 +59,8 @@
         @blur="$v.recipe.tempsPreparation.$touch()"
         id="time"
         placeholder="Saisissez le temps de préparation en minutes">
-      <span v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.required">
+      <span v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.required 
+      && $v.recipe.tempsPreparation >= 1">
         Veuillez indiquer un temps de préparation (en minute)</span>
     </div>
 
@@ -71,7 +72,8 @@
         @blur="$v.recipe.personnes.$touch()"
         id="guest"
         placeholder="Saisissez le nombre de personnes">
-      <span v-if="$v.recipe.personnes.$dirty && !$v.recipe.personnes.required">Veuillez saisir un nombre de personne</span>
+      <span v-if="$v.recipe.personnes.$dirty && !$v.recipe.personnes.required && $v.recipe.personnes >= 1">
+        Veuillez saisir un nombre de personne</span>
     </div>
     
 
