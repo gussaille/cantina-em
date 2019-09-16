@@ -90,6 +90,9 @@ export default {
     }
 
     &__title{
+      @media screen and(min-width:480px){
+        min-height: 70px;
+      }
       font-family: starJedi;
       letter-spacing: 3px;
     }

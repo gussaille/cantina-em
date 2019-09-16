@@ -35,6 +35,7 @@ export default {
     justify-content: center;
     justify-content: space-between;
     align-items: center;
+    
     @media screen and(max-width: 480px){
         flex-flow: column wrap;
         margin: 0 auto;
@@ -42,10 +43,18 @@ export default {
 
     img{
         width:70px;
+        transition: 0.6s;
+        
         @media screen and(min-width:480px){
             margin-left:40px;
         }
+        
+        &:hover{
+            transform: scale(1.05);
+            transition: 0.6s;
+        }
     }
+
     &__block{
         @media screen and(max-width:600px){
             width:100%;
@@ -74,6 +83,7 @@ export default {
         i.material-icons{
             position:relative;
             top:5px;
+           
             @media screen and(max-width:480px){
                 top:0;
             }
@@ -90,12 +100,14 @@ export default {
                 margin: unset;
             }
         }
+
         &:active{
             transition: none;
             color: rgba(81, 203, 238, 0.8);
             background-color: rgb(41, 40, 40);
 
         }
+
         &.router-link-exact-active {
             @media screen and(max-width:600px){
                 width: 100%;
@@ -108,10 +120,10 @@ export default {
 }
 
 @keyframes slideDown{
-    from{
+    from {
         transform: translateY(-100%);
     }
-    to{
+    to {
         transform: translateY(0);
     }
 }

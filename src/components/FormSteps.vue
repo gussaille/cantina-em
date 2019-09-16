@@ -22,6 +22,7 @@ export default {
 
     methods:{  
         removeSteps: function(){
+            this.$toasted.show("L'étape a été supprimée"); 
             this.etapes.splice(this.index, 1);
         },
     }
@@ -29,18 +30,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
- 
-    textarea{
-        min-height:50px;
-        margin:5px 0;
-
-        .textarea-block{
-            min-height:40px;
-            display:flex;
-            align-items: center;
-        }
-        @media screen and(min-width:480px){
-              padding-top: 28px;
+.textarea-block{
+        min-height:40px;
+        display:flex;
+        align-items: center;
+        
+        textarea{
+            min-height:50px;
+            margin:5px;
         }
     }
 </style>

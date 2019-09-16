@@ -25,7 +25,7 @@
             <section>
                 <div class="recipe__ingredients">
                      <div class="recipe__header">
-                        <h3 class="recipe__subtitle">ingrédients</h3>
+                        <h3 class="recipe__subtitle">Ingrédients</h3>
                     </div>
                     <ul>
                     <li class="recipe__text" v-for="(ingredient, index) in recipe.ingredients" :key="index">

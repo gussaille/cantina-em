@@ -1,8 +1,7 @@
 <template>
     <div class="home">    
         <div class="container">    
-           <div class="banner">
-                <!-- <img class="banner__illustration" src="/img/background-cantina.jpg" alt="Bannière Cantina"> -->
+           <div class="banner" @click="redirectList">
                 <div class="description">
                     <h1 class="description__title"> La Cantina </h1>
                     <p class="description__text">Les Geeks ont du Goût</p>
@@ -14,8 +13,6 @@
 
 <script>
 
-import userService from "../services/userService"
-
 export default {
   name: 'Home',
   components: {},
@@ -24,29 +21,27 @@ export default {
         
         }
     },
-    created(){
-      userService
-      .fetchAll()
-      .then(recipesList => {
-          this.recipesList = recipesList;
-      });
-  },
-  computed: {
-
-  },
-  
-  methods :{
-  
-  }
+    methods:{
+        redirectList(){
+            this.$router.push("List");
+        }
+    }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .home{
+    min-height: 75vh;
     padding: 20px 0;
+
     .container{
-        width: 75%;
+        width: 60%;
+
+        @media screen and(max-width:480px){
+            width:80%;
+        }
+
         max-width: 1200px;
         border: 3px solid #FBE50B;
         margin:0 auto;
@@ -64,6 +59,7 @@ export default {
                 background-size:cover;
                 background-repeat:no-repeat;
             }
+
             &__illustration{
                 width:100%;
                 
@@ -78,12 +74,14 @@ export default {
                 background-color: rgba(254,254,254, 0.5);
                 position:absolute;
                 top:25%;
-                @media screen and(max-width:480px){
-                    top:10%;
-                }
                 left:50%;
                 transform: translate(-50%, 20%);
                 animation: fadeIn 1.5s ease-in;
+
+                @media screen and(max-width:480px){
+                    top:10%;
+                }
+
                 &__title{
                     font-family:starJedi;
                     font-size: 36px;
@@ -92,6 +90,7 @@ export default {
                     text-shadow: 2px 4px 5px #000000;
                     animation: fadeIn 1.5s ease-in;
                 }
+
                 &__text{
                     font-size:22px;
                     color: white;
@@ -99,7 +98,6 @@ export default {
                     text-shadow: 2px 4px 5px #000000;
                 }
             }
-         
         }
     }
 }

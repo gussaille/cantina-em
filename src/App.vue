@@ -2,16 +2,18 @@
   <div id="app" class="wrapper"> 
     <Navbar/>
     <router-view/>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import Navbar from "./components/Navbar.vue"
+import Footer from "./components/Footer.vue"
 
 export default {
     name: 'app',
     components: {
-        Navbar
+        Navbar, Footer
     },
     data(){
         return {
@@ -54,25 +56,27 @@ body {
 	line-height: 1;
 }
 
-
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
 }
+
 .wrapper{
   color:white;
   width:100%;
   min-height:100vh;
+  font-family: arial;
   background: #2C2C2C;
   max-width:1680px;
+
   ul{
     padding:unset;
   }
+  
   h1,
-  h2,
-  h3{
+  h2{
     font-family: starJedi;
     letter-spacing:3px;
   }

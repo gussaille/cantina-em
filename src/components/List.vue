@@ -2,7 +2,7 @@
   <div class="list" id="list">    
     <form class="form-filter" @submit.prevent>
       <div class="form-filter__search">
-        <label for="searchVal">Rechercher :</label>
+        <label for="searchVal">Rechercher</label>
         <input type="text" id="searchVal" v-model="searchValue" placeholder="Veuillez saisir un nom de recette">
       </div>
 
@@ -73,14 +73,12 @@ export default {
 
   filteredList: function() {
       let filteredList = this.recipesList;
-
       let searchVal = this.searchValue;
      
       if(this.selectValue[0] ===  true && searchVal != ''){
         filteredList = filteredList.filter((recipe)=> recipe.titre.toLowerCase().includes(searchVal))        
       }
-
-      //If the select value is different from all show  show all the results matches
+      //If the select value is different from all show matches with this.selectValu[1]
       if(this.selectValue[1] !=  "all"){
         filteredList = filteredList.filter((recipe)=> recipe.niveau.toLowerCase() === this.selectValue[1])
       }
@@ -122,6 +120,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .list{
+  min-height:75vh;
+
   .form-filter{
     color:white;
     margin: 20px auto;
@@ -129,17 +129,21 @@ export default {
     justify-content: space-around;
     flex-wrap: wrap;
     align-items:center;
+
     @media screen and(min-width:780px) and (orientation: landscape){
       width:80%;
     }
+
     @media screen and(max-width:480px){
       flex-direction: column;
     }
+
     &__search{
       width:100%;
       display:flex;
       flex-direction: column ;
       max-width:330px;
+
       @media screen and(min-width:800px){
         max-width:400px;
       }
@@ -153,15 +157,19 @@ export default {
           width:80%;
         }
       }
+
       label{
         width:88%;
+        font-size:24px;
+        margin:0 auto;
+        text-align:left;
+        
         @media screen and(min-width:870px){
           width: 100%;
         }
-        margin:0 auto;
-        text-align:left;
       }
     }
+
     &__select{
       display:flex;
       width:230px;
@@ -176,6 +184,7 @@ export default {
        padding:5px;
        margin:5px 0;
       }
+
       div{
         width: 100%;
         display:flex;

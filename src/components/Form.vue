@@ -64,7 +64,7 @@
         placeholder="Saisissez le temps de préparation en minutes">
       <span v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.required">
         Veuillez indiquer un temps de préparation (en minute)</span>
-      <span v-if="recipe.tempsPreparation <= 0 && $v.recipe.tempsPreparation.$dirty">Le temps de préparation doit être d'au moins une minute </span>
+      <span v-else-if="recipe.tempsPreparation <= 0 && $v.recipe.tempsPreparation.$dirty">Le temps de préparation doit être supérieur à 0 minute </span>
     </div>
 
     <div class="recipe-form__group">
@@ -77,7 +77,7 @@
         placeholder="Saisissez le nombre de personnes">
       <span v-if="$v.recipe.personnes.$dirty && !$v.recipe.personnes.required">
         Veuillez saisir un nombre de personne</span>
-      <span  v-else-if="recipe.personnes === 0 && $v.recipe.personnes.$dirty"> Veuillez saisir au moins une personne</span>
+      <span v-else-if="recipe.personnes <= 0 && $v.recipe.personnes.$dirty"> Veuillez saisir au moins une personne</span>
     </div>
     
 
@@ -89,7 +89,7 @@
       </div>
 
       <button class="addField" @click.prevent="addTextArea()" title="Cliquer pour ajouter une étape"><i class="material-icons">add</i></button>
-      <span v-if="$v.recipe.etapes.$dirty && !$v.recipe.etapes.required">
+      <span v-if="$v.recipe.etapes < 1 && !$v.recipe.etapes.required">
           Veuillez saisir les différentes étapes de la recette
       </span>
     </div> 
@@ -117,19 +117,7 @@ export default {
     components: { FormIngredients, FormSteps },
     props : ['recipe'],
     data: function() {
-      return{
-        // recipe: {     
-        //   id: null,
-        //   titre: "",
-        //   description: "",
-        //   etapes: [''],  
-          // ingredients: [''],                 
-        //   niveau: "", 
-        //   personnes: "",
-        //   tempsPreparation: "",
-        //   photo: ""
-        // },
-      }
+      return{}
     }, 
     validations: {
         recipe: {
@@ -160,19 +148,13 @@ export default {
         }
       },
 
-      addTextArea: function(newField){
-        this.recipe.etapes.push(newField)
+      addTextArea: function(){
+        this.recipe.etapes.push([''])
       },
       
       addField: function(){
         this.recipe.ingredients.push(['',''])
       }
-
-      // hasExtension(photo, exts) {
-      //   var fileName = document.getElementById("photo").value;
-      //   console.log(fileName);
-      //   return (new RegExp('(' + exts.join('|').replace(/\./g, '\\.') + ')$')).test(fileName);
-      // },
   }
 }
 </script>

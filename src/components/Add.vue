@@ -1,6 +1,6 @@
 <template>
     <div class="container centered">
-      <h1>Page d'ajout de nouvelles recettes extraordinairement G33k</h1>
+      <h1>Formulaire d'ajout de recette</h1>
       <hr>
       <Form :recipe="recipe" :id="recipe.id" @send="addRecipe"></Form>
     </div>
