@@ -44,9 +44,9 @@ export default {
                 });                 
                 this.$router.replace('/list');
             })
-            .catch(() => {
+            .catch((error) => {
                 console.log(recipe)
-                alert("Erreur, veuillez réessayer");
+                this.$toasted.error(error.message)          
             })
         }
     }

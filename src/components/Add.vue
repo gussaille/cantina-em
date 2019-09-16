@@ -23,7 +23,7 @@ export default {
                 titre: "",
                 description: "",
                 etapes: [''],  
-                ingredients: [''],                 
+                ingredients: [['','']],                 
                 niveau: "", 
                 personnes: "",
                 tempsPreparation: "",
@@ -41,7 +41,9 @@ export default {
                 });                         
                 this.$router.push({ path: '/list' })
             })
-            .catch(() => alert("Erreur"));
+            .catch((error) => {
+                this.$toasted.error(error.message)          
+            }) 
         }
     }
 }

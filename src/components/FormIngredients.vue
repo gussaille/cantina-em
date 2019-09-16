@@ -1,7 +1,7 @@
 <template>
     <div class="ingredients-bloc">
         <div> 
-            <input type="number" placeholder="Quantité" v-model="ingredients[0]"/>
+            <input type="number" placeholder="Quantité" v-model="ingredient[0]"/>
         </div>
         
         <div>
@@ -16,25 +16,22 @@
         </div>
 
         <div>
-            <input placeholder="Ingrédient" v-model="ingredients[1]"/>
+            <input placeholder="Ingrédient" v-model="ingredient[1]"/>
         </div>
-        <button  @click="toggle()" >
-            <i title="Cliquer pour valider votre ingrédient" @click.prevent="sendIngredients" v-if="isValid" class="material-icons">check</i>
-            <i title="Cliquer pour supprimer votre ingrédient" @click.prevent="removeIngredients" v-else class="material-icons">delete</i>
+        <button>
+            <i title="Cliquer pour supprimer votre ingrédient" @click.prevent="removeIngredients"  class="material-icons">delete</i>
         </button>      
-        <!-- <button @click.prevent="removeIngredient" title="Cliquer pour supprimer votre ingrédient"><i class="material-icons">delete</i></button>       -->
     </div>
 </template>
 
 <script>
 export default {
     name: 'FormIngredients',
-    props:[ 'recipe'],
+    props:[ 'recipe', 'ingredients', "index"],
     data: function(){
         return{
-            ingredients:[''],
+            ingredient: this.ingredients[this.index],
             mesure:'',
-            isValid: true 
         }
     },
 
@@ -43,15 +40,13 @@ export default {
 
     methods: {
         sendIngredients: function () {
-            this.$toasted.show("L'ingrédient a été enregistrée"); 
-            this.$emit('send', this.ingredients);
+            this.$toasted.show("L'ingrédient a été enregistré"); 
+            // this.$emit('send', { ingredient: this.ingredient, index: this.index});
         },
         removeIngredients: function(){
-            this.ingredients.splice(this.ingredients[0]);
+            this.$toasted.show("L'ingrédient a été supprimé"); 
+            this.ingredients.splice(this.index, 1); // Actuellement ne supprime pas le bon objet
         },
-        toggle: function(){
-            this.isValid = !this.isValid
-        }
     },
 }
 

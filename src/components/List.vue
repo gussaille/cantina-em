@@ -126,8 +126,8 @@ export default {
               duration : 2000
             });          
           })
-          .catch(()=> {
-            alert('Erreur')
+          .catch((error)=> {
+              this.$toasted.error(error.message)          
         })
     }
   }

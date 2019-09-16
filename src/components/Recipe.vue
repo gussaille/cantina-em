@@ -113,8 +113,8 @@ export default {
                 });    
                 this.$router.push({name:'List'});
             })
-            .catch(()=> {
-                alert('Erreur')
+            .catch((error)=> {
+                this.$toasted.error(error.message)          
             })      
         }
     },

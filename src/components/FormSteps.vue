@@ -4,7 +4,7 @@
             type="text" 
              v-model="etapes[index]"
             placeholder="Saisissez l'étape de préparation"></textarea>  
-            <button  @click="toggle()" title="Cliquer pour valider votre ingrédient">
+            <button  @click="toggle()" title="Cliquer pour valider votre étape">
                 <i @click.prevent="sendSteps" v-if="isValid" class="material-icons">check</i>
                 <i @click.prevent="removeSteps" v-else class="material-icons">delete</i>
             </button>

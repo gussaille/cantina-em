@@ -59,9 +59,9 @@
         @blur="$v.recipe.tempsPreparation.$touch()"
         id="time"
         placeholder="Saisissez le temps de préparation en minutes">
-      <span v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.required 
-      && $v.recipe.tempsPreparation >= 1">
+      <span v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.required">
         Veuillez indiquer un temps de préparation (en minute)</span>
+      <span v-if="recipe.tempsPreparation <= 1 && $v.recipe.tempsPreparation.$dirty">Le temps de préparation doit être d'au moins une minute </span>
     </div>
 
     <div class="recipe-form__group">
@@ -72,8 +72,9 @@
         @blur="$v.recipe.personnes.$touch()"
         id="guest"
         placeholder="Saisissez le nombre de personnes">
-      <span v-if="$v.recipe.personnes.$dirty && !$v.recipe.personnes.required && $v.recipe.personnes >= 1">
+      <span v-if="$v.recipe.personnes.$dirty && !$v.recipe.personnes.required">
         Veuillez saisir un nombre de personne</span>
+      <span v-if="recipe.personnes <= 0 && $v.recipe.personnes.$dirty"> Veuillez saisir au moins une personne</span>
     </div>
     
 
@@ -146,11 +147,11 @@ export default {
           this.$emit('send', this.recipe);
       },
 
-      getIngredients: function(ingredient) {
-        console.log(ingredient);
-        for(let i = 1; i <= this.recipe.ingredients; i++){
-          this.recipe.ingredients[i] = ingredient;
-        }
+      getIngredients: function(data) {
+        this.recipe.ingredients[data.index] = data.ingredient;
+        //for(let i = 1; i <= this.recipe.ingredients; i++){
+          //this.recipe.ingredients[i] = ingredient;
+        //}
       },
       
       getSteps: function(data){
@@ -163,8 +164,8 @@ export default {
         this.recipe.etapes.push(newField)
       },
       
-      addField: function(newField){
-        this.recipe.ingredients.push(newField)
+      addField: function(){
+        this.recipe.ingredients.push(['',''])
       }
 
       // hasExtension(photo, exts) {
