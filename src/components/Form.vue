@@ -43,7 +43,10 @@
         <label for="ingredients">Liste des ingrédients*</label>
 
         <div v-for="(value, index) in recipe.ingredients" :key="index">
+
+          <!-- Composant FormIngredients -->
           <FormIngredients :index="index" :ingredients="recipe.ingredients" @send="getIngredients"/>
+          <!-- -->
         </div>   
         <span v-if="$v.recipe.ingredients.$dirty && !$v.recipe.ingredients.required">
           Veuillez renseigner un ingrédient</span>
