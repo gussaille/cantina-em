@@ -6,7 +6,7 @@
             </router-link>
             <div class="nav-container__block">
                 <router-link class="nav-container__link" to="/">  <i class="material-icons">home</i> Accueil</router-link>
-                <router-link class="nav-container__link" to="/list">Liste de recettes</router-link>
+                <router-link class="nav-container__link" to="/list">Liste des recettes</router-link>
                 <router-link class="nav-container__link" to="/add">Ajouter une nouvelles recette</router-link>
             </div>
         </div>

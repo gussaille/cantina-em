@@ -4,9 +4,8 @@
             type="text" 
              v-model="etapes[index]"
             placeholder="Saisissez l'étape de préparation"></textarea>  
-            <button  @click="toggle()" title="Cliquer pour valider votre étape">
-                <i @click.prevent="sendSteps" v-if="isValid" class="material-icons">check</i>
-                <i @click.prevent="removeSteps" v-else class="material-icons">delete</i>
+            <button title="Cliquer pour supprimer votre étape">
+                <i @click.prevent="removeSteps" class="material-icons">delete</i>
             </button>
     </div>
 </template>
@@ -17,21 +16,14 @@ export default {
     props: ['etapes', 'index'],
     data: function(){
         return{
-            // mutateEtapes : this.etapes
-            isValid : true
+
         }
     },
 
-    methods:{
-        sendSteps: function () {
-            this.$emit('send', this.etapes);
-        },
+    methods:{  
         removeSteps: function(){
-            this.etapes.splice(this.etape);
+            this.etapes.splice(this.index, 1);
         },
-        toggle: function(){
-            this.isValid = !this.isValid
-        }
     }
 }
 </script>

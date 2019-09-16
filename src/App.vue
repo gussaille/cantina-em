@@ -79,9 +79,8 @@ body {
   h1{
     font-size: 24px;
   }
-  .toast-message{
-    font-family: starJedi;
-    font-size:20px;
+  .error-message{
+    display:none;
   }
 
   .btn-custom{

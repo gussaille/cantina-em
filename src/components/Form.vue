@@ -51,7 +51,7 @@
         <span v-if="$v.recipe.ingredients.$dirty && !$v.recipe.ingredients.required">
           Veuillez renseigner un ingrédient</span>
 
-      <button class="addField" @click.prevent="addField"><i class="material-icons">add</i></button>
+      <button class="addField" @click.prevent="addField" title="Cliquer pour ajouter un ingrédient"><i class="material-icons">add</i></button>
     </div>
 
     <div class="recipe-form__group">
@@ -64,20 +64,20 @@
         placeholder="Saisissez le temps de préparation en minutes">
       <span v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.required">
         Veuillez indiquer un temps de préparation (en minute)</span>
-      <span v-if="recipe.tempsPreparation <= 1 && $v.recipe.tempsPreparation.$dirty">Le temps de préparation doit être d'au moins une minute </span>
+      <span v-if="recipe.tempsPreparation <= 0 && $v.recipe.tempsPreparation.$dirty">Le temps de préparation doit être d'au moins une minute </span>
     </div>
 
     <div class="recipe-form__group">
       <label for="guest">Nombre de personne*</label>
       <input
-        type="number"
+        type="number" 
         v-model.number="$v.recipe.personnes.$model"
         @blur="$v.recipe.personnes.$touch()"
         id="guest"
         placeholder="Saisissez le nombre de personnes">
       <span v-if="$v.recipe.personnes.$dirty && !$v.recipe.personnes.required">
         Veuillez saisir un nombre de personne</span>
-      <span v-if="recipe.personnes <= 0 && $v.recipe.personnes.$dirty"> Veuillez saisir au moins une personne</span>
+      <span  v-else-if="recipe.personnes === 0 && $v.recipe.personnes.$dirty"> Veuillez saisir au moins une personne</span>
     </div>
     
 
@@ -85,10 +85,10 @@
       <label for="step">Etapes de préparation*</label>
       
       <div v-for="(value, index) in recipe.etapes" :key="index">
-        <FormSteps :index="index" :etapes="recipe.etapes" @send="getSteps"/>
+        <FormSteps :index="index" :etapes="recipe.etapes"/>
       </div>
 
-      <button class="addField" @click.prevent="addTextArea(etapes)"><i class="material-icons">add</i></button>
+      <button class="addField" @click.prevent="addTextArea()" title="Cliquer pour ajouter une étape"><i class="material-icons">add</i></button>
       <span v-if="$v.recipe.etapes.$dirty && !$v.recipe.etapes.required">
           Veuillez saisir les différentes étapes de la recette
       </span>
@@ -152,9 +152,6 @@ export default {
 
       getIngredients: function(data) {
         this.recipe.ingredients[data.index] = data.ingredient;
-        //for(let i = 1; i <= this.recipe.ingredients; i++){
-          //this.recipe.ingredients[i] = ingredient;
-        //}
       },
       
       getSteps: function(data){

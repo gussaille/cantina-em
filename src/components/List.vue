@@ -14,7 +14,7 @@
         </div>
         <div>
           <select v-model="selectValue[1]" value="level" id="level" name="niveau">
-            <option disabled value="">-- Niveau de difficulté --</option>
+            <option value="" disabled>-- Niveau de difficulté --</option>
             <option value="all">Tous niveaux</option>
             <option value="padawan">Padawan</option>
             <option value="jedi">Jedi</option>
@@ -22,16 +22,17 @@
           </select>
         </div>
         <div> 
-          <input type="number" v-model.number="personnesNumber"  value="guest" id="guest" name="personne">
+          <input type="number" v-model.number="personNumber" min="1"  value="guest" id="guest" name="personne">
           <label for="guest"> Nombre de personne </label>
         </div>
         <div>
-          <input type="number" v-model.number="selectValue[2]" value="time" id="time" name="time">
+          <input type="number" v-model.number="timeCooking" min="0" value="time" id="time" name="time">
           <label for="time"> Temps de préparation (en mn)</label>
         </div>
       </div>
     </form>
-    <!-- <p class="error">Désolé, aucun résultat n'est apparu.</p> -->
+    <!-- <p v-if="error" class="error-message">Désolé, aucun résultat n'est apparu.</p> -->
+    
 
     <div v-if="recipesList" class="recipe-list">    
         <RecipeCard @remove="removeRecipe" 
@@ -47,6 +48,7 @@
 
 import RecipeCard from  './RecipeCard'
 import userService from "../services/userService"
+import { filter } from 'minimatch';
 
 export default {
   name: 'List',
@@ -55,9 +57,9 @@ export default {
     return{
         recipesList : null,
         searchValue: "",
-        selectValue: [true],
-        personnesNumber: null,
-        hasError: true
+        selectValue: [true, 'all'],
+        personNumber: undefined,
+        timeCooking:undefined 
     }
   },
   created(){
@@ -74,60 +76,43 @@ export default {
 
       let searchVal = this.searchValue;
      
-        if(this.selectValue[0] ===  true){
-          filteredList = filteredList.filter((recipe)=> recipe.titre.toLowerCase().includes(searchVal))        
-        }
+      if(this.selectValue[0] ===  true && searchVal != ''){
+        filteredList = filteredList.filter((recipe)=> recipe.titre.toLowerCase().includes(searchVal))        
+      }
 
-        //If the select value = "padawan" show all the results matches
-        if(this.selectValue[1] ===  "padawan"){
-          filteredList = filteredList.filter((recipe)=> recipe.niveau.toLowerCase().includes('padawan'))
-        }
-        //If the select value = "jedi" show all the results matches
-        if(this.selectValue[1] ===  "jedi"){
-          filteredList = filteredList.filter((recipe)=> recipe.niveau.toLowerCase().includes('jedi'))
-        }
-        if(this.selectValue[1] ===  "maitre"){
-          filteredList = filteredList.filter((recipe)=> recipe.niveau.toLowerCase().includes('maitre'))
-        }
+      //If the select value is different from all show  show all the results matches
+      if(this.selectValue[1] !=  "all"){
+        filteredList = filteredList.filter((recipe)=> recipe.niveau.toLowerCase() === this.selectValue[1])
+      }
 
-        if(filteredList.length === 0){
-          // let listError = document.getElementById('list');
-          // let textError = document.createTextNode("Désolé, aucun résultat n'est apparu..");
-          // listError.appendChild(textError);
-        }
+      if(this.personNumber){
+        filteredList = filteredList.filter((recipe)=> recipe.personnes >= this.personNumber)
+      }
 
-        // for (let i = 0; i <= filteredList.length; i++){
-        //   console.log(filteredList[i].personnes)
-        //   if(this.personnesNumber == filteredList[i].personnes){
-        //     // console.log(filteredList[i])
-        //     console.log('Recette')          
-        //   }
-        // }
-        //if(this.selectValue[2] == filteredList[i].tempsPreparation){
-        //     // console.log(filteredList[i])
-        //     console.log('Recette')          
-        //   }
-        return filteredList;
+      if(this.timeCooking){
+        filteredList = filteredList.filter((recipe)=> recipe.tempsPreparation <= this.timeCooking)
+      }
+      return filteredList;
     }
   },
   
   methods :{
     removeRecipe(recipeToDelete){
-      if(confirm("Êtes-vous sûr de vouloir supprimer cette recette?"))
+      if(confirm("Êtes-vous sûr de vouloir supprimer cette recette ?"))
         userService.removeRecipe(recipeToDelete)
-          .then(()=> {
-            let indexList = this.recipesList.indexOf(recipeToDelete)
-            if(indexList > -1){
-              this.recipesList.splice(indexList, 1);
-            }
-            this.$toasted.show("La recette a été supprimée !", { 
-              theme: "bubble", 
-              position: "top-center", 
-              duration : 2000
-            });          
-          })
-          .catch((error)=> {
-              this.$toasted.error(error.message)          
+        .then(()=> {
+          let indexList = this.recipesList.indexOf(recipeToDelete)
+          if(indexList > -1){
+            this.recipesList.splice(indexList, 1);
+          }
+          this.$toasted.show("La recette a été supprimée !", { 
+            theme: "bubble", 
+            position: "top-center", 
+            duration : 2000
+          });          
+        })
+        .catch((error)=> {
+            this.$toasted.error(error.message)          
         })
     }
   }

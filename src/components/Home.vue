@@ -78,6 +78,9 @@ export default {
                 background-color: rgba(254,254,254, 0.5);
                 position:absolute;
                 top:25%;
+                @media screen and(max-width:480px){
+                    top:10%;
+                }
                 left:50%;
                 transform: translate(-50%, 20%);
                 animation: fadeIn 1.5s ease-in;
