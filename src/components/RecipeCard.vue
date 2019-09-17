@@ -1,16 +1,19 @@
 <template>
   <article class="recipe-card">
-    <div class="informations" @click="goRecipe">
+    <div class="recipe-card__container" @click="goRecipe">
       <h1 class="recipe-card__title">{{recipe.titre}}</h1>
-      <img :src="recipe.photo || DEFAULT_PICTURE" class="informations__illustration" :alt="recipe.titre">
-      <div class="informations__preparation">
-        <p class="informations__preparation__level">Difficulté : {{ recipe.niveau }}</p>
-        <p class="informations__preparation__time">Préparation : {{ CONVERT_TIME }} </p>
-        
-        <p class="informations__preparation__guest" v-if="recipe.personnes > 1"> Pour {{ recipe.personnes }} personnes
-        </p>
-         <p class="informations__preparation__guest" v-else> Pour {{ recipe.personnes }} personne
-        </p>
+
+      <div class="informations" >
+        <img :src="recipe.photo || DEFAULT_PICTURE" class="informations__illustration" :alt="recipe.titre">
+        <div class="informations__preparation">
+          <p class="informations__preparation__level">Difficulté : {{ recipe.niveau }}</p>
+          <p class="informations__preparation__time">Préparation : {{ CONVERT_TIME }} </p>
+          
+          <p class="informations__preparation__guest" v-if="recipe.personnes > 1"> Pour {{ recipe.personnes }} personnes
+          </p>
+          <p class="informations__preparation__guest" v-else> Pour {{ recipe.personnes }} personne
+          </p>
+        </div>
       </div>
     </div>
     <div class="btn-custom">
@@ -78,8 +81,7 @@ export default {
     transition: 0.5s;
     
     &:hover{
-      background: rgba(254, 254, 254, 0.5);
-      color:black;
+      background: rgba(254, 254, 254, 0.1);
       .recipe-card__title{
         text-shadow: 2px 4px 5px #000000;
       }

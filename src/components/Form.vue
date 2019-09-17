@@ -185,10 +185,10 @@ export default {
             width:90%;
             max-width:400px;
             padding:12px;
+            height:30px;
             margin:0 auto;
             font-family: Arial;
             outline:none;
-            border-radius:20px;
             border:none;
             &::placeholder{
               color:black;
@@ -196,6 +196,7 @@ export default {
         }
 
         select{
+          height:50px;
             width:60%;
         }
         

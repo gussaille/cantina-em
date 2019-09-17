@@ -47,7 +47,7 @@
 <script>
 
 import RecipeCard from  './RecipeCard'
-import userService from "../services/userService"
+import recipeService from "../services/recipeService"
 import { filter } from 'minimatch';
 
 export default {
@@ -63,7 +63,7 @@ export default {
     }
   },
   created(){
-      userService
+      recipeService
       .fetchAll()
       .then(recipesList => {
           this.recipesList = recipesList;
@@ -97,7 +97,7 @@ export default {
   methods :{
     removeRecipe(recipeToDelete){
       if(confirm("Êtes-vous sûr de vouloir supprimer cette recette ?"))
-        userService.removeRecipe(recipeToDelete)
+        recipeService.removeRecipe(recipeToDelete)
         .then(()=> {
           let indexList = this.recipesList.indexOf(recipeToDelete)
           if(indexList > -1){
@@ -183,6 +183,9 @@ export default {
        width:50px;
        padding:5px;
        margin:5px 0;
+      }
+      select{
+        padding:5px;
       }
 
       div{

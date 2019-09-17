@@ -9,7 +9,7 @@
 <script>
 
 import Form from "./Form.vue"
-import userService from "../services/userService"
+import recipeService from "../services/recipeService"
 
 export default {
     name: 'Edit',
@@ -22,7 +22,7 @@ export default {
         }
     }, 
     created : function(){
-        userService
+        recipeService
         .fetchOne(this.$route.params.id)
         .then(recipe => { 
             this.recipe = recipe;
@@ -35,7 +35,7 @@ export default {
     methods: {
         update(recipe){
             console.log(recipe)
-            userService.updateRecipe(recipe)
+            recipeService.updateRecipe(recipe)
             .then(()=> {
                 this.$toasted.show("La recette a été modifiée !", { 
                     theme: "bubble", 

@@ -47,6 +47,7 @@ export default {
         margin:0 auto;
 
         .banner{
+            cursor: pointer;
             min-height:400px;
             position:relative;
             background-image: url('/img/cantina-mobile.jpg');

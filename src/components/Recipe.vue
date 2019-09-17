@@ -57,7 +57,7 @@
 
 <script>
 
-import userService from '../services/userService'
+import recipeService from '../services/recipeService'
 
 export default {
     name: 'Recipe',
@@ -69,7 +69,7 @@ export default {
         }
     },
     created(){
-        userService
+        recipeService
         .fetchOne(this.$route.params.id)
         .then(recipe => {
             this.recipe = recipe;
@@ -103,7 +103,7 @@ export default {
         },
         remove(){
             if(confirm("Êtes-vous sûr de vouloir supprimer cette recette?"))
-            userService.removeRecipe(this.recipe)
+            recipeService.removeRecipe(this.recipe)
             .then(()=> {
                 this.recipe.$remove;
                 this.$toasted.show("La recette a été supprimée !", { 
@@ -140,7 +140,7 @@ export default {
     }
 
     .container{
-        box-shadow: 0px 2px 40px 4px rgba(81, 203, 238, 0.8);
+        border: 2px solid lightgrey;
         max-width:720px;
         @media screen and(max-width:480px){
             width:90%;

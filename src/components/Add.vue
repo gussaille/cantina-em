@@ -9,7 +9,7 @@
 <script>
 
 import Form from "./Form.vue"
-import userService from "../services/userService"
+import recipeService from "../services/recipeService"
 
 export default {
     name: 'Add',
@@ -33,7 +33,7 @@ export default {
     }, 
     methods: {
         addRecipe(recipeToAdd){        
-            userService.addRecipe(recipeToAdd).then(() =>{
+            recipeService.addRecipe(recipeToAdd).then(() =>{
                 this.$toasted.show("La recette a été ajoutée avec succès!", { 
                     theme: "bubble", 
                     position: "top-center", 
