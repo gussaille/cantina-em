@@ -1,7 +1,7 @@
 <template>
   <article class="recipe-card">
-    <h1 class="recipe-card__title">{{recipe.titre}}</h1>
     <div class="informations" @click="goRecipe">
+      <h1 class="recipe-card__title">{{recipe.titre}}</h1>
       <img :src="recipe.photo || DEFAULT_PICTURE" class="informations__illustration" :alt="recipe.titre">
       <div class="informations__preparation">
         <p class="informations__preparation__level">Difficulté : {{ recipe.niveau }}</p>
