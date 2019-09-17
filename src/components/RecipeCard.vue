@@ -16,6 +16,7 @@
         </div>
       </div>
     </div>
+
     <div class="btn-custom">
         <router-link :to="`/recipe/edit/${recipe.id}`" title="Modifier la recette" class="btn btn-custom--edit"><i class="material-icons" >edit</i></router-link>
         <button class="btn btn-custom--remove"  title="Supprimer la recette" @click="onRemove"><i class="material-icons">delete</i></button> 
@@ -51,10 +52,6 @@ export default {
     }
   },
   methods: {
-    edit(){
-
-    },
-
     //REDIRECT TO THE RECIPE PAGE
     goRecipe(){
       this.$router.push({path:"/recipe/" + this.recipe.id});
@@ -82,6 +79,7 @@ export default {
     
     &:hover{
       background: rgba(254, 254, 254, 0.1);
+
       .recipe-card__title{
         text-shadow: 2px 4px 5px #000000;
       }
@@ -92,15 +90,15 @@ export default {
     }
 
     &__title{
+      font-family: starJedi;
+      letter-spacing: 3px;
+
       @media screen and(min-width:480px){
         min-height: 70px;
       }
-      font-family: starJedi;
-      letter-spacing: 3px;
     }
 
     .informations {
-
       @media screen and(max-width:480px){
         display:flex;
         align-items:center;

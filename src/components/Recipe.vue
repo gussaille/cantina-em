@@ -142,11 +142,13 @@ export default {
     .container{
         border: 2px solid lightgrey;
         max-width:720px;
+        margin: 0 auto;
+
         @media screen and(max-width:480px){
             width:90%;
             margin: 0 auto;
         }
-        margin: 0 auto;
+
         section:first-child{
             display:flex;
             flex-direction:column;
@@ -163,6 +165,7 @@ export default {
                 max-width:1680px;
                 margin: 50px auto;
             }
+
             .recipe__banner {
                 display: block;
                 border-radius: 25px 0;
@@ -227,6 +230,7 @@ export default {
                         float:left;
                         width:50px;
                     }
+                    
                     li{
                         list-style-type: decimal;
                     }

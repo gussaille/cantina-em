@@ -31,13 +31,13 @@ export default {
 
 <style scoped lang="scss">
 .textarea-block{
-        min-height:40px;
-        display:flex;
-        align-items: center;
-        
-        textarea{
-            min-height:50px;
-            margin:5px;
-        }
+    min-height:40px;
+    display:flex;
+    align-items: center;
+    
+    textarea{
+        min-height:50px;
+        margin:5px;
     }
+}
 </style>

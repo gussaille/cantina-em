@@ -5,7 +5,7 @@
                 <img src="/img/logoCantina.png" alt="Logo Cantina">
             </router-link>
             <div class="nav-container__block">
-                <router-link class="nav-container__link" to="/">  <i class="material-icons">home</i> Accueil</router-link>
+                <router-link class="nav-container__link" to="/"><i class="material-icons">home</i> Accueil</router-link>
                 <router-link class="nav-container__link" to="/list">Liste des recettes</router-link>
                 <router-link class="nav-container__link" to="/add">Ajouter une nouvelles recette</router-link>
             </div>
@@ -70,9 +70,9 @@ export default {
         text-decoration: none;
         display: inline-block;
         transition: all 150ms;
-        transform: scale(1);
         padding: 20px;
         line-height: 2.5;
+
         @media screen and(max-width:480px){
             padding: 0.75em 0;
             display:flex;
@@ -91,7 +91,6 @@ export default {
 
         &:hover{
             background-color: black;
-            transform: scale(1.05);
             color: rgba(81, 203, 238, 0.8);
         }
 
@@ -109,12 +108,13 @@ export default {
         }
 
         &.router-link-exact-active {
-            @media screen and(max-width:600px){
-                width: 100%;
-            }
             color: rgba(81, 203, 238, 0.8);
             background-color: #2C2C2C;
             text-shadow:0 0 10px rgba(81, 203, 238, 1);
+            
+            @media screen and(max-width:600px){
+                width: 100%;
+            }
         }
     }
 }
