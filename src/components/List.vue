@@ -31,15 +31,15 @@
         </div>
       </div>
     </form>
-    <!-- <p v-if="error" class="error-message">Désolé, aucun résultat n'est apparu.</p> -->
     
-
     <div v-if="recipesList" class="recipe-list">    
         <RecipeCard @remove="removeRecipe" 
                     v-for="recipe in filteredList" 
                     :key="recipe.id" 
                     :recipe="recipe"/>
     </div>
+
+    <div class="arrow-top" @click.prevent="scrollToTop" title="Remonter en haut de la page"><i class="material-icons">keyboard_arrow_up</i></div>
 
   </div>
 </template>
@@ -78,18 +78,19 @@ export default {
       if(this.selectValue[0] ===  true && searchVal != ''){
         filteredList = filteredList.filter((recipe)=> recipe.titre.toLowerCase().includes(searchVal))        
       }
-      //If the select value is different from all show matches with this.selectValu[1]
+      // Level filter 
       if(this.selectValue[1] !=  "all"){
         filteredList = filteredList.filter((recipe)=> recipe.niveau.toLowerCase() === this.selectValue[1])
       }
-
+      // Persons Filter
       if(this.personNumber){
         filteredList = filteredList.filter((recipe)=> recipe.personnes >= this.personNumber)
       }
-
+      // Time Filter
       if(this.timeCooking){
         filteredList = filteredList.filter((recipe)=> recipe.tempsPreparation <= this.timeCooking)
       }
+
       return filteredList;
     }
   },
@@ -112,6 +113,12 @@ export default {
         .catch((error)=> {
             this.$toasted.error(error.message)          
         })
+    },
+    scrollToTop() {
+      window.scrollTo(  {
+        top: 0,
+        behavior: 'smooth'
+      });
     }
   }
 }
@@ -120,6 +127,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .list{
+  position:relative;
   min-height:75vh;
 
   .form-filter{
@@ -184,6 +192,7 @@ export default {
        padding:5px;
        margin:5px 0;
       }
+
       select{
         padding:5px;
       }
@@ -197,12 +206,25 @@ export default {
     }
   }
   .recipe-list{
-    width:100%;
-    max-width: 1480px;
+    width:80%;
+    margin: 0 auto;
+    max-width: 1200px;
     display:flex;
     flex-wrap: wrap;
     align-items:center;
     justify-content: space-around;
+  }
+  .arrow-top{
+    @media screen and(min-width:768px){
+      cursor: pointer;
+      position: fixed;
+      right: 30px;
+      bottom: 20px;
+      i{
+        font-size:75px;
+        width: 60px;
+      }
+    }
   }
 }
 

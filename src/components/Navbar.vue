@@ -90,8 +90,7 @@ export default {
         }
 
         &:hover{
-            background-color: black;
-            color: rgba(81, 203, 238, 0.8);
+            background-color: rgb(41, 40, 40);
         }
 
         &:last-of-type{
@@ -102,15 +101,10 @@ export default {
 
         &:active{
             transition: none;
-            color: rgba(81, 203, 238, 0.8);
-            background-color: rgb(41, 40, 40);
-
         }
 
         &.router-link-exact-active {
-            color: rgba(81, 203, 238, 0.8);
-            background-color: #2C2C2C;
-            text-shadow:0 0 10px rgba(81, 203, 238, 1);
+            border-bottom :1px solid white;
             
             @media screen and(max-width:600px){
                 width: 100%;

@@ -68,7 +68,7 @@
     </div>
 
     <div class="recipe-form__group">
-      <label for="guest">Nombre de personne*</label>
+      <label for="guest">Nombre de personnes*</label>
       <input
         type="number" 
         v-model.number="$v.recipe.personnes.$model"
@@ -89,7 +89,7 @@
       </div>
 
       <button class="addField" @click.prevent="addTextArea()" title="Cliquer pour ajouter une étape"><i class="material-icons">add</i></button>
-      <span v-if="$v.recipe.etapes < 1 && !$v.recipe.etapes.required">
+      <span v-if="recipe.etapes < 1 && !$v.recipe.etapes.required">
           Veuillez saisir les différentes étapes de la recette
       </span>
     </div> 
@@ -171,60 +171,64 @@ export default {
     flex-direction: column;
     
     &__group{
-        width:80%;
-        margin: 0 auto;
-        display:flex;
-        flex-direction: column;
-        margin: 10px auto;
-        
-        label{
-            text-transform: uppercase;
-        }
-        
-        input, select, textarea{
-            width:90%;
-            max-width:400px;
-            padding:12px;
-            height:30px;
-            margin:0 auto;
-            font-family: Arial;
-            outline:none;
-            border:none;
-            &::placeholder{
-              color:black;
-            }
-        }
-
-        select{
-          height:50px;
-            width:60%;
-        }
-        
-        span{
-            margin-top:5px;
-            color:red;
-            font-size:12px;
-        }
-        .addField{
-          width:50px;
-          margin:10px 0;
-        }
+      width:80%;
+      margin: 0 auto;
+      display:flex;
+      flex-direction: column;
+      margin: 10px auto;
+      
+      label{
+        margin:4px auto;
+          text-transform: uppercase;
       }
+      
+      input, select, textarea{
+          width:90%;
+          max-width:400px;
+          padding:12px;
+          height:30px;
+          margin:0 auto;
+          font-family: Arial;
+          outline:none;
+          border:none;
+
+          &::placeholder{
+            color:black;
+          }
+      }
+
+      select{
+        height:50px;
+          width:60%;
+      }
+      
+      span{
+          margin-top:5px;
+          color:red;
+          font-size:12px;
+      }
+
+      .addField{
+        width:50px;
+        margin:10px 0;
+      }
+    }
+
     .actions{
         button{
-            width: 250px; 
-            padding:12px;
-            background: rgba(81, 203, 238, 0.8);
-            margin: 20px auto;
-            outline: none;
-            font-size:20px;
-            color:white;
-            text-transform: uppercase;
-            border: none;
+          width: 250px; 
+          cursor: pointer;
+          padding:12px;
+          margin: 20px auto;
+          outline: none;
+          font-size:20px;
+          color:black;
+          text-transform: uppercase;
+          border: none;
 
-            &:hover{
-                box-shadow: 0 0 10px rgba(120, 204, 228, 0.6);
-            }
+          &:hover{
+              background:lightgrey;
+          }
         }
     }
 }

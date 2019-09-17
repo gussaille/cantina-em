@@ -140,8 +140,9 @@ export default {
     }
 
     .container{
-        border: 2px solid lightgrey;
+        border: 2px solid black;
         max-width:720px;
+        background:#3d3d3d;
         margin: 0 auto;
 
         @media screen and(max-width:480px){

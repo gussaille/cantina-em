@@ -1,7 +1,7 @@
 <template>
     <footer class="footer">
         <p class="footer__mention">
-            Made by Nicolas Durocher - 2019
+            Nicolas Durocher - 2019
         </p>
     </footer>
 </template>
